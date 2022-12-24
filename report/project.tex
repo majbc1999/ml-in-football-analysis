@@ -1,30 +1,20 @@
 
-%% bare_jrnl_transmag.tex
+%% bare_conf.tex
 %% V1.4
 %% 2012/12/27
 %% by Michael Shell
-%% see http://www.michaelshell.org/
+%% See:
+%% http://www.michaelshell.org/
 %% for current contact information.
 %%
 %% This is a skeleton file demonstrating the use of IEEEtran.cls
-%% (requires IEEEtran.cls version 1.8 or later) with an IEEE 
-%% Transactions on Magnetics journal paper.
+%% (requires IEEEtran.cls version 1.8 or later) with an IEEE conference paper.
 %%
 %% Support sites:
 %% http://www.michaelshell.org/tex/ieeetran/
 %% http://www.ctan.org/tex-archive/macros/latex/contrib/IEEEtran/
 %% and
 %% http://www.ieee.org/
-
-
-
-% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
-% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
-% *** with production work. IEEE's font choices can trigger bugs that do  ***
-% *** not appear when using other class files.                            ***
-% The testflow support page is at:
-% http://www.michaelshell.org/tex/testflow/
-
 
 %%*************************************************************************
 %% Legal Notice:
@@ -54,6 +44,15 @@
 %%                    bare_jrnl_transmag.tex
 %%*************************************************************************
 
+% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
+% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
+% *** with production work. IEEE's font choices can trigger bugs that do  ***
+% *** not appear when using other class files.                            ***
+% The testflow support page is at:
+% http://www.michaelshell.org/tex/testflow/
+
+
+
 % Note that the a4paper option is mainly intended so that authors in
 % countries using A4 can easily print to A4 and see how their papers will
 % look in print - the typesetting of the document will not typically be
@@ -65,11 +64,12 @@
 % should be used if it is desired that the figures are to be displayed in
 % draft mode.
 %
-\documentclass[journal,transmag]{IEEEtran}
+\documentclass[conference]{IEEEtran}
+% Add the compsoc option for Computer Society conferences.
 %
 % If IEEEtran.cls has not been installed into the LaTeX system files,
 % manually specify the path to it like:
-% \documentclass[journal]{../sty/IEEEtran}
+% \documentclass[conference]{../sty/IEEEtran}
 
 
 
@@ -169,6 +169,7 @@
 
 
 
+
 % *** MATH PACKAGES ***
 %
 %\usepackage[cmex10]{amsmath}
@@ -260,6 +261,7 @@
 
 
 
+
 % *** FLOAT PACKAGES ***
 %
 %\usepackage{fixltx2e}
@@ -302,47 +304,6 @@
 
 
 
-%\ifCLASSOPTIONcaptionsoff
-%  \usepackage[nomarkers]{endfloat}
-% \let\MYoriglatexcaption\caption
-% \renewcommand{\caption}[2][\relax]{\MYoriglatexcaption[#2]{#2}}
-%\fi
-% endfloat.sty was written by James Darrell McCauley, Jeff Goldberg and 
-% Axel Sommerfeldt. This package may be useful when used in conjunction with 
-% IEEEtran.cls'  captionsoff option. Some IEEE journals/societies require that
-% submissions have lists of figures/tables at the end of the paper and that
-% figures/tables without any captions are placed on a page by themselves at
-% the end of the document. If needed, the draftcls IEEEtran class option or
-% \CLASSINPUTbaselinestretch interface can be used to increase the line
-% spacing as well. Be sure and use the nomarkers option of endfloat to
-% prevent endfloat from "marking" where the figures would have been placed
-% in the text. The two hack lines of code above are a slight modification of
-% that suggested by in the endfloat docs (section 8.4.1) to ensure that
-% the full captions always appear in the list of figures/tables - even if
-% the user used the short optional argument of \caption[]{}.
-% IEEE papers do not typically make use of \caption[]'s optional argument,
-% so this should not be an issue. A similar trick can be used to disable
-% captions of packages such as subfig.sty that lack options to turn off
-% the subcaptions:
-% For subfig.sty:
-% \let\MYorigsubfloat\subfloat
-% \renewcommand{\subfloat}[2][\relax]{\MYorigsubfloat[]{#2}}
-% However, the above trick will not work if both optional arguments of
-% the \subfloat command are used. Furthermore, there needs to be a
-% description of each subfigure *somewhere* and endfloat does not add
-% subfigure captions to its list of figures. Thus, the best approach is to
-% avoid the use of subfigure captions (many IEEE journals avoid them anyway)
-% and instead reference/explain all the subfigures within the main caption.
-% The latest version of endfloat.sty and its documentation can obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/endfloat/
-%
-% The IEEEtran \ifCLASSOPTIONcaptionsoff conditional can also be used
-% later in the document, say, to conditionally put the References on a 
-% page by themselves.
-
-
-
-
 % *** PDF, URL AND HYPERLINK PACKAGES ***
 %
 %\usepackage{url}
@@ -363,7 +324,7 @@
 
 
 % correct bad hyphenation here
-\hyphenation{op-tical net-works semi-conduc-tor}
+% \hyphenation{op-tical net-works semi-conduc-tor}
 
 
 \begin{document}
@@ -371,47 +332,38 @@
 % paper title
 % can use linebreaks \\ within to get better formatting as desired
 % Do not put math or special symbols in the title.
-\title{Bare Demo of IEEEtran.cls for \textsc{Transactions on Magnetics}}
-
+\title{Bayesian networks and other machine learning techniques for sports predicting and betting}
 
 
 % author names and affiliations
-% transmag papers use the long conference author name format.
+% use a multiple column layout for up to three different
+% affiliations
+\author{\IEEEauthorblockN{Maj Gaberšček}
+\IEEEauthorblockA{Faculty of Computer and Information Science, \\ Večna pot 113, 1000 Ljubljana, Slovenia \\
+Email: mg5781@student.uni-lj.si}}
 
-\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
-Homer Simpson\IEEEauthorrefmark{2},
-James Kirk\IEEEauthorrefmark{3}, 
-Montgomery Scott\IEEEauthorrefmark{3}, and
-Eldon Tyrell\IEEEauthorrefmark{4},~\IEEEmembership{Fellow,~IEEE}}
-\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering,
-Georgia Institute of Technology, Atlanta, GA 30332 USA}
-\IEEEauthorblockA{\IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA}
-\IEEEauthorblockA{\IEEEauthorrefmark{3}Starfleet Academy, San Francisco, CA 96678 USA}
-\IEEEauthorblockA{\IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, CA 90210 USA}% <-this % stops an unwanted space
-\thanks{Manuscript received December 1, 2012; revised December 27, 2012. 
-Corresponding author: M. Shell (email: http://www.michaelshell.org/contact.html).}}
+% conference papers do not typically use \thanks and this command
+% is locked out in conference mode. If really needed, such as for
+% the acknowledgment of grants, issue a \IEEEoverridecommandlockouts
+% after \documentclass
 
-
-
-% The paper headers
-\markboth{Journal of \LaTeX\ Class Files,~Vol.~11, No.~4, December~2012}%
-{Shell \MakeLowercase{\textit{et al.}}: Bare Demo of IEEEtran.cls for Journals}
-% The only time the second header will appear is for the odd numbered pages
-% after the title page when using the twoside option.
+% for over three affiliations, or if they all won't fit within the width
+% of the page, use this alternative format:
 % 
-% *** Note that you probably will NOT want to include the author's ***
-% *** name in the headers of peer review papers.                   ***
-% You can use \ifCLASSOPTIONpeerreview for conditional compilation here if
-% you desire.
+%\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
+%Homer Simpson\IEEEauthorrefmark{2},
+%James Kirk\IEEEauthorrefmark{3}, 
+%Montgomery Scott\IEEEauthorrefmark{3} and
+%Eldon Tyrell\IEEEauthorrefmark{4}}
+%\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
+%Georgia Institute of Technology,
+%Atlanta, Georgia 30332--0250\\ Email: see http://www.michaelshell.org/contact.html}
+%\IEEEauthorblockA{\IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA\\
+%Email: homer@thesimpsons.com}
+%\IEEEauthorblockA{\IEEEauthorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
+%Telephone: (800) 555--1212, Fax: (888) 555--1212}
+%\IEEEauthorblockA{\IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
 
-
-
-
-% If you want to put a publisher's ID mark on the page you can do it like
-% this:
-%\IEEEpubid{0000--0000/00\$00.00~\copyright~2012 IEEE}
-% Remember, if you use this you must call \IEEEpubidadjcol in the second
-% column for its text to clear the IEEEpubid mark.
 
 
 
@@ -419,41 +371,18 @@ Corresponding author: M. Shell (email: http://www.michaelshell.org/contact.html)
 %\IEEEspecialpapernotice{(Invited Paper)}
 
 
-% for Transactions on Magnetics papers, we must declare the abstract and
-% index terms PRIOR to the title within the \IEEEtitleabstractindextext
-% IEEEtran command as these need to go into the title area created by
-% \maketitle.
-% As a general rule, do not put math, special symbols or citations
-% in the abstract or keywords.
-\IEEEtitleabstractindextext{%
-\begin{abstract}
-The abstract goes here.
-\end{abstract}
-
-% Note that keywords are not normally used for peerreview papers.
-\begin{IEEEkeywords}
-IEEEtran, journal, \LaTeX, magnetics, paper, template.
-\end{IEEEkeywords}}
-
 
 
 % make the title area
 \maketitle
 
+% As a general rule, do not put math, special symbols or citations
+% in the abstract
+\begin{abstract}
+The abstract goes here.
+\end{abstract}
 
-% To allow for easy dual compilation without having to reenter the
-% abstract/keywords data, the \IEEEtitleabstractindextext text will
-% not be used in maketitle, but will appear (i.e., to be "transported")
-% here as \IEEEdisplaynontitleabstractindextext when the compsoc 
-% or transmag modes are not selected <OR> if conference mode is selected 
-% - because all conference papers position the abstract like regular
-% papers do.
-\IEEEdisplaynontitleabstractindextext
-% \IEEEdisplaynontitleabstractindextext has no effect when using
-% compsoc or transmag under a non-conference mode.
-
-
-
+% no keywords
 
 
 
@@ -471,41 +400,110 @@ IEEEtran, journal, \LaTeX, magnetics, paper, template.
 
 
 \section{Introduction}
-% The very first letter is a 2 line initial drop letter followed
-% by the rest of the first word in caps.
-% 
-% form to use if the first word consists of a single letter:
-% \IEEEPARstart{A}{demo} file is ....
-% 
-% form to use if you need the single drop letter followed by
-% normal text (unknown if ever used by IEEE):
-% \IEEEPARstart{A}{}demo file is ....
-% 
-% Some journals put the first two words in caps:
-% \IEEEPARstart{T}{his demo} file is ....
-% 
-% Here we have the typical use of a "T" for an initial drop letter
-% and "HIS" in caps to complete the first word.
-\IEEEPARstart{T}{his} demo file is intended to serve as a ``starter file''
-for IEEE journal papers produced under \LaTeX\ using
-IEEEtran.cls version 1.8 and later.
-% You must have at least 2 lines in the paragraph with the drop letter
-% (should never be an issue)
-I wish you the best of success.
 
-\hfill mds
+This paper was written as an attempt to investigate the area of sports predicting.
+Sports predicting is mainly used by bookmakers, in order to offer fair bets, that do 
+not produce loss of profit. But on the other hand, odds should be as fair (high) as possible
+in order to attract more and more gamblers. So predicting the result of a game as accurately
+as possible is the essence of every bookmaker. This article (and experiment) will focus on 
+predicting the result of football matches in term of home win (home team scores more goals),
+draw (same goal amount for each team) and away win (away team scores more goals).
+
+First chapter of this paper contains information of related work. This includes a short recap
+of new discoveries regarding Bayesian networks (that will be later used in an experiment), 
+other machine learning techniques, that we use to predict sport results and also a summary of 
+new discoveries in regard to betting on sports events.
+
+Second chapter will write about the experiment we conducted. We will describe how we acquired 
+data for our experiment, how the data was processed in order to be suitable for some machine 
+learning techniques. We will also describe, which machine learning techniques we used in our experiment.
+Then, we will talk about output data, that the algorithms will return and how to compare
+results with each other. We will also discuss, which metrics for evaluation will be useful,
+and which metrics actually matter the most for our experiment (and in general, which metrics
+matter the most to bookmakers).
+
+Third chapter of this paper will focus on results of our experiment. There we will compare 
+different algorithms, that were applied to our data and evaluate each in regard to metrics.
+We will also discuss, how data size affects quality of our prediction. We will compare 
+returned probabilities for different match results, to probabilities, that were given by
+bookmaker. Finally, we will decide, whether our models are able to beat the odds.
+
+Fourth and final chapter is called \emph{Conclusion}, where all important results will be 
+discussed. We will also evaluate our whole experiment and talk about the possible further work 
+there.
  
-\hfill December 27, 2012
+\hfill December 29, 2022
 
-\subsection{Subsection Heading Here}
-Subsection text here.
+\section{Related Work}
 
-% needed in second column of first page if using \IEEEpubid
-%\IEEEpubidadjcol
+Unsurprisingly, a lot of work has already been done in this area, as sports betting is a field,
+where enormous amount of money is being made every day. First, we will talk about Bayesian networks.
 
-\subsubsection{Subsubsection Heading Here}
-Subsubsection text here.
+\subsection{Bayesian networks}
 
+Bayesian networks are a type of probabilistic graphical model, that uses Bayesian 
+inference for probability computations. Bayesian networks aim to model conditional 
+dependence, and therefore causation, by representing conditional dependence by 
+edges in a directed graph. Edges in graph correspond to conditional dependency and 
+each node corresponds to a different random variable.
+
+Our goal in this article will be, to predict correct type of result for a game, similar 
+to the work done in article \cite{Razali_2017}. However, there will be many 
+differences in experiment, which will be pointed out during the article.
+
+\subsection{Sports predicting}
+
+Betting in sports started with horse racing in the early 1900s. Although betting was 
+not always legal (depends on a specific country), that did not stop people to still
+gamble on sports events. That's why correctly predicting probabilities of sports 
+results were very important to bookmakers, ever since betting existed. That is why
+machine learning was a very interesting option for bookmakers to consider, as it 
+was very objective and it used math and algorithms to predict results. Bookmakers 
+could now offer also odds for games and competitions, that they were not so very familiar 
+with.
+
+First attempt to predict sports results with the help of machine learning was in
+1977, where the author of article \cite{Stefani_1977} used a technique called least squared model.
+This model was used to predict strength of opposing teams with goal scoring distribution matrix.
+Observed accuracy in that model was 72 percent for college football games, 68 percent for pro 
+football games and 69 percent for college basketball games.
+
+First recorded usage of Bayesian networks in attempt to predict football results was used in
+year 2001, in article \cite{Rue_2001}. The authors took an applied statistician's approach to the problem, 
+suggesting a Bayesian dynamic generalized linear model to estimate the time-dependent 
+skills of all teams in a league, and to predict the next week-end's soccer matches.
+
+\cite{Joseph_2006} compared expert constructed Bayesian networks' ability to predict football 
+results with other machine learning algorithms, such as decision tree learner, MC4, Naive Bayes learner,
+Data driven Bayesian nets (which we will be using in our experiment), $K$-nearest neighbours, etc. 
+The results from there confirmed, that Bayesian nets have great potential for predicting sport
+results, as the authors had predictive accuracy of almost 60 percent, compared to second best
+algorithm, $K$-nearest neighbours, which had an accuracy of little above 50 percent. Data, that the authors 
+used for prediction, were home advantage, opposition team quality and characteristics of team's best players.
+
+
+In 2010, article \cite{Baio_2010} proposed Bayesian hierarchical model, to predict final result 
+of the game.
+
+\subsection{Betting in sports}
+
+ % TODO opis bettinga
+ 
+Article \cite{Constantinou_2013} from 2013 explores 
+
+\section{Experiment description}
+\subsection{Tools}
+\subsection{Data for experiment}
+\subsection{Data processing}
+\subsection{Algorithms used}
+\subsection{Metrics for evaluation}
+
+\section{Results}
+\subsection{Evaluation}
+\subsubsection{Algorithm comparison}
+\subsection{Parameter effect on results}
+\subsection{Probabilities in comparison to betting odds}
+\subsection{Beating the bookmakers}
 
 % An example of a floating figure using the graphicx package.
 % Note that \label must occur AFTER (or within) \caption.
@@ -585,59 +583,20 @@ Subsubsection text here.
 
 % Note that IEEE does not put floats in the very first column - or typically
 % anywhere on the first page for that matter. Also, in-text middle ("here")
-% positioning is not used. Most IEEE journals use top floats exclusively.
-% Note that, LaTeX2e, unlike IEEE journals, places footnotes above bottom
-% floats. This can be corrected via the \fnbelowfloat command of the
-% stfloats package.
+% positioning is not used. Most IEEE journals/conferences use top floats
+% exclusively. Note that, LaTeX2e, unlike IEEE journals/conferences, places
+% footnotes above bottom floats. This can be corrected via the \fnbelowfloat
+% command of the stfloats package.
 
 
 
 \section{Conclusion}
-The conclusion goes here.
 
-
-
-
-
-% if have a single appendix:
-%\appendix[Proof of the Zonklar Equations]
-% or
-%\appendix  % for no appendix heading
-% do not use \section anymore after \appendix, only \section*
-% is possibly needed
-
-% use appendices with more than one appendix
-% then use \section to start each appendix
-% you must declare a \section before using any
-% \subsection or using \label (\appendices by itself
-% starts a section numbered zero.)
-%
-
-
-\appendices
-\section{Proof of the First Zonklar Equation}
-Appendix one text goes here.
-
-% you can choose not to have a title for an appendix
-% if you want by leaving the argument blank
-\section{}
-Appendix two text goes here.
+% conference papers do not normally have an appendix
 
 
 % use section* for acknowledgement
 \section*{Acknowledgment}
-
-
-The authors would like to thank...
-
-
-% Can use something like this to put references on a page
-% by themselves when using endfloat and the captionsoff option.
-\ifCLASSOPTIONcaptionsoff
-  \newpage
-\fi
-
-
 
 % trigger a \newpage just before the given reference
 % number - used to balance the columns on the last page
@@ -661,55 +620,9 @@ The authors would like to thank...
 % <OR> manually copy in the resultant .bbl file
 % set second argument of \begin to the number of references
 % (used to reserve space for the reference number labels box)
-\begin{thebibliography}{1}
 
-\bibitem{IEEEhowto:kopka}
-H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
-  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
-
-\end{thebibliography}
-
-% biography section
-% 
-% If you have an EPS/PDF photo (graphicx package needed) extra braces are
-% needed around the contents of the optional argument to biography to prevent
-% the LaTeX parser from getting confused when it sees the complicated
-% \includegraphics command within an optional argument. (You could create
-% your own custom macro containing the \includegraphics command to make things
-% simpler here.)
-%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
-% or if you just want to reserve a space for a photo:
-
-\begin{IEEEbiography}{Michael Shell}
-Biography text here.
-\end{IEEEbiography}
-
-% if you will not have a photo at all:
-\begin{IEEEbiographynophoto}{John Doe}
-Biography text here.
-\end{IEEEbiographynophoto}
-
-% insert where needed to balance the two columns on the last page with
-% biographies
-%\newpage
-
-\begin{IEEEbiographynophoto}{Jane Doe}
-Biography text here.
-\end{IEEEbiographynophoto}
-
-% You can push biographies down or up by placing
-% a \vfill before or after them. The appropriate
-% use of \vfill depends on what kind of text is
-% on the last page and whether or not the columns
-% are being equalized.
-
-%\vfill
-
-% Can be used to pull up biographies so that the bottom of the last one
-% is flush with the other column.
-%\enlargethispage{-5in}
-
-
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography} 
 
 % that's all folks
 \end{document}
