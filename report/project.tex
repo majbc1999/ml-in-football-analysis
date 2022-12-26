@@ -515,7 +515,7 @@ Then data was processed with a programming language \texttt{Python} and its libr
 applied different machine learning algorithms from \texttt{sklearn} package. Returned data was further processed 
 with \texttt{pandas}. All the plots, displayed in this paper, were made with \texttt{matplotlib} library.
 
-\subsection{Data for experiment}
+\subsection{Data}
 
 As previously stated, all data of football games, was acquired from \emph{Football-Data.co.uk}. Data describes every
 football game of Spanish first division, LaLiga (Primera División), from season 2013/2014 to 2021/2022. Since each season has 
@@ -546,8 +546,75 @@ That procedure is described in \emph{Data processing} subsection.
 Data of odds will be used to compare our algorithm's predicted probabilities with bookmaker's predicted probabilities.
 
 \subsection{Data processing}
-\subsection{Algorithms used}
+
+In order to transform the data, so we could construct models for predicting, we firstly dropped columns, that were not needed
+in data. Then each game was assigned a unique index. An iteration through data frame was performed, in order to obtain each team's
+order of playing. A new dictionary was defined, where team names were keys and values were ordered lists of game indexes. 
+
+Then another iteration was made through the original data frame. For each played game, we looked for $k$ (we tried different $k$-s
+and also compared results) previous games for home and away team. The general idea behind this was, that we determined strength of
+a team, based on its previous results. For example, points, that the team received in previous $k$ games were calculated, goals, that the home or away team scored were summed, etc.
+
+In the end, we got a new data frame, with the following columns:
+\begin{itemize}
+    \item \textit{index}: unique index, assigned to each game;
+    \item \textit{result}: final result of the game (home win, draw or away win),
+    \item \textit{odds\_home}, \textit{odds\_draw} and \textit{odds\_away}: bet365 odds for each possible outcome of the game;
+    \item \textit{points\_home} and \textit{points\_away}: points, that home and away team scored in the last $k$ games. Note,
+    that a team gets 3 points for a win, 1 point for a draw and 0 points for a loss;
+    \item \textit{goals\_scored\_home} and \textit{goals\_scored\_away}: a sum of goals, scored in past $k$ games for home and away
+    team;
+    \item \textit{goals\_conceded\_home} and \textit{goals\_conceded\_away}: a sum of goals, conceded in past $k$ games for home 
+    and away team;
+    \item \textit{shots\_given\_home} and \textit{shots\_given\_away}: a sum of shots given, in past $k$ games for home 
+    and away team,
+    \item \textit{shots\_conceded\_home} and \textit{shots\_conceded\_away}: a sum of shots, conceded in past $k$ games for home 
+    and away team,
+    \item \textit{corners\_difference\_home} and \textit{corners\_difference\_away}: a sum of corner differences for home and away 
+    team, it the past $k$ games. Note, that corner difference is calculated by subtracting opponent corners from team corners. 
+\end{itemize}
+
+Columns \textit{index} and \textit{odds} are in the data frame just for analysis purposes. They were not used in building models.
+All the other columns contain data, that was already available, before the game was played (for exception of column \texit{result}). Therefore, we can use that data to construct our model for predicting game results.
+
+\subsection{Machine learning algorithms used}
+
+The purpose of building our model, was firstly, to predict the game result as well as possible, but also secondly, to see if our
+prediction can profit in the betting market. For example, if our algorithm predicts a home win to be the most probable final 
+result and the bookmaker also offers lowest odds on home win, we cannot tell for sure, if our prediction would be sufficient to
+profit. That is why we need our algorithms to return \textit{probabilities} for each game result. That way we can see, on which
+result it is profitable to bet.
+
+For that purpose, we only used \textbf{probabilistic classifiers}: Bayesian network, Naive Bayes classifier, Probabilistic neural 
+network and Probabilistic $k$ nearest neighbours algorithm (for different $k$). All of this methods return probabilities for each
+class (home win, away win or draw).
+
 \subsection{Metrics for evaluation}
+
+In order to evaluate our predictions for different model, we will use standard metrics for evaluating probabilistic classifiers. 
+The most important metric will be \textbf{Brier score}, which is defined as 
+$$\frac{1}{N} \sum_{i=1}^{N} \sum_{t=1}^{R} {(P(f_{ti}) - o_{ti})},$$ in which $R$ is the number of possible classes in which the
+event can fall, and $N$ the overall number of instances of all classes. $f_{ti}$ is the predicted probability for class $t$ to 
+happen in instance $i$. $o_{ti}$ is 1 if $i$-th event is of class $t$ and 0 otherwise. Better models have smaller Brier score.
+
+We will not be calculating the \textbf{logloss} metric, because our data is far too large for personal computer's numerical 
+precision.
+
+From here on, we will assume, that our model predicted the outcome, whose prediction percentage will be the highest. 
+
+Second metrics will be \textbf{precision} for each class. This is simply a percentage of correct predictions. The most important
+will be the recall for \textit{home win}, as this class should have overall the highest probability of occurrence.
+
+We will also calculate \textbf{recall} for every class. The most important will again be the recall for \textit{home win}, as 
+this class should have overall the highest probability of occurrence. For example, a draw is harder to predict and usually 
+most unlikely to happen. That is why we will have a lot of false negatives there.
+
+To merge both precision and recall, we will also calculated the harmonic mean \textbf{F1 score}.
+
+Last metric, that we will be using, will be \textbf{confusion matrix}. While this is not exactly a \textit{metric}, it will 
+still provide with rich insight in our model's capability to predict a correct most probable result.
+
+% TODO: dodaj https://towardsdatascience.com/comprehensive-guide-on-multiclass-classification-metrics-af94cfb83fbd
 
 \section{Results}
 \subsection{Evaluation}
@@ -669,7 +736,7 @@ Data of odds will be used to compare our algorithm's predicted probabilities wit
 %\bibliography{IEEEabrv,../bib/paper}
 %
 % <OR> manually copy in the resultant .bbl file
-% set second argument of \begin to the number of references
+% set second argument tof \begin to the number of references
 % (used to reserve space for the reference number labels box)
 
 \bibliographystyle{IEEEtran}
