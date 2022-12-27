@@ -1,403 +1,25 @@
 
-%% bare_conf.tex
-%% V1.4
-%% 2012/12/27
-%% by Michael Shell
-%% See:
-%% http://www.michaelshell.org/
-%% for current contact information.
-%%
-%% This is a skeleton file demonstrating the use of IEEEtran.cls
-%% (requires IEEEtran.cls version 1.8 or later) with an IEEE conference paper.
-%%
-%% Support sites:
-%% http://www.michaelshell.org/tex/ieeetran/
-%% http://www.ctan.org/tex-archive/macros/latex/contrib/IEEEtran/
-%% and
-%% http://www.ieee.org/
-
-%%*************************************************************************
-%% Legal Notice:
-%% This code is offered as-is without any warranty either expressed or
-%% implied; without even the implied warranty of MERCHANTABILITY or
-%% FITNESS FOR A PARTICULAR PURPOSE! 
-%% User assumes all risk.
-%% In no event shall IEEE or any contributor to this code be liable for
-%% any damages or losses, including, but not limited to, incidental,
-%% consequential, or any other damages, resulting from the use or misuse
-%% of any information contained here.
-%%
-%% All comments are the opinions of their respective authors and are not
-%% necessarily endorsed by the IEEE.
-%%
-%% This work is distributed under the LaTeX Project Public License (LPPL)
-%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
-%% distributed and modified. A copy of the LPPL, version 1.3, is included
-%% in the base LaTeX documentation of all distributions of LaTeX released
-%% 2003/12/01 or later.
-%% Retain all contribution notices and credits.
-%% ** Modified files should be clearly indicated as such, including  **
-%% ** renaming them and changing author support contact information. **
-%%
-%% File list of work: IEEEtran.cls, IEEEtran_HOWTO.pdf, bare_adv.tex,
-%%                    bare_conf.tex, bare_jrnl.tex, bare_jrnl_compsoc.tex,
-%%                    bare_jrnl_transmag.tex
-%%*************************************************************************
-
-% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
-% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
-% *** with production work. IEEE's font choices can trigger bugs that do  ***
-% *** not appear when using other class files.                            ***
-% The testflow support page is at:
-% http://www.michaelshell.org/tex/testflow/
-
-
-
-% Note that the a4paper option is mainly intended so that authors in
-% countries using A4 can easily print to A4 and see how their papers will
-% look in print - the typesetting of the document will not typically be
-% affected with changes in paper size (but the bottom and side margins will).
-% Use the testflow package mentioned above to verify correct handling of
-% both paper sizes by the user's LaTeX system.
-%
-% Also note that the "draftcls" or "draftclsnofoot", not "draft", option
-% should be used if it is desired that the figures are to be displayed in
-% draft mode.
-%
 \documentclass[conference]{IEEEtran}
-% Add the compsoc option for Computer Society conferences.
-%
-% If IEEEtran.cls has not been installed into the LaTeX system files,
-% manually specify the path to it like:
-% \documentclass[conference]{../sty/IEEEtran}
-
-
-
-
-
-% Some very useful LaTeX packages include:
-% (uncomment the ones you want to load)
-
-
-% *** MISC UTILITY PACKAGES ***
-%
-%\usepackage{ifpdf}
-% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
-% compilation based on whether the output is pdf or dvi.
-% usage:
-% \ifpdf
-%   % pdf code
-% \else
-%   % dvi code
-% \fi
-% The latest version of ifpdf.sty can be obtained from:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/oberdiek/
-% Also, note that IEEEtran.cls V1.7 and later provides a builtin
-% \ifCLASSINFOpdf conditional that works the same way.
-% When switching from latex to pdflatex and vice-versa, the compiler may
-% have to be run twice to clear warning/error messages.
-
-
-
-
-
-
-% *** CITATION PACKAGES ***
-%
-%\usepackage{cite}
-% cite.sty was written by Donald Arseneau
-% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
-% \cite{} output to follow that of IEEE. Loading the cite package will
-% result in citation numbers being automatically sorted and properly
-% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
-% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
-% \cite will automatically add leading space, if needed. Use cite.sty's
-% noadjust option (cite.sty V3.8 and later) if you want to turn this off
-% such as if a citation ever needs to be enclosed in parenthesis.
-% cite.sty is already installed on most LaTeX systems. Be sure and use
-% version 4.0 (2003-05-27) and later if using hyperref.sty. cite.sty does
-% not currently provide for hyperlinked citations.
-% The latest version can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/cite/
-% The documentation is contained in the cite.sty file itself.
-
-
-
-
-
-
-% *** GRAPHICS RELATED PACKAGES ***
-%
 \ifCLASSINFOpdf
-  % \usepackage[pdftex]{graphicx}
-  % declare the path(s) where your graphic files are
-  % \graphicspath{{../pdf/}{../jpeg/}}
-  % and their extensions so you won't have to specify these with
-  % every instance of \includegraphics
-  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
 \else
-  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
-  % will default to the driver specified in the system graphics.cfg if no
-  % driver is specified.
-  % \usepackage[dvips]{graphicx}
-  % declare the path(s) where your graphic files are
-  % \graphicspath{{../eps/}}
-  % and their extensions so you won't have to specify these with
-  % every instance of \includegraphics
-  % \DeclareGraphicsExtensions{.eps}
 \fi
-% graphicx was written by David Carlisle and Sebastian Rahtz. It is
-% required if you want graphics, photos, etc. graphicx.sty is already
-% installed on most LaTeX systems. The latest version and documentation
-% can be obtained at: 
-% http://www.ctan.org/tex-archive/macros/latex/required/graphics/
-% Another good source of documentation is "Using Imported Graphics in
-% LaTeX2e" by Keith Reckdahl which can be found at:
-% http://www.ctan.org/tex-archive/info/epslatex/
-%
-% latex, and pdflatex in dvi mode, support graphics in encapsulated
-% postscript (.eps) format. pdflatex in pdf mode supports graphics
-% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
-% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
-% not a bitmapped formats (.jpeg, .png). IEEE frowns on bitmapped formats
-% which can result in "jaggedy"/blurry rendering of lines and letters as
-% well as large increases in file sizes.
-%
-% You can find documentation about the pdfTeX application at:
-% http://www.tug.org/applications/pdftex
-
-
-
-
-
-% *** MATH PACKAGES ***
-%
-%\usepackage[cmex10]{amsmath}
-% A popular package from the American Mathematical Society that provides
-% many useful and powerful commands for dealing with mathematics. If using
-% it, be sure to load this package with the cmex10 option to ensure that
-% only type 1 fonts will utilized at all point sizes. Without this option,
-% it is possible that some math symbols, particularly those within
-% footnotes, will be rendered in bitmap form which will result in a
-% document that can not be IEEE Xplore compliant!
-%
-% Also, note that the amsmath package sets \interdisplaylinepenalty to 10000
-% thus preventing page breaks from occurring within multiline equations. Use:
-%\interdisplaylinepenalty=2500
-% after loading amsmath to restore such page breaks as IEEEtran.cls normally
-% does. amsmath.sty is already installed on most LaTeX systems. The latest
-% version and documentation can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/required/amslatex/math/
-
-
-
-
-
-% *** SPECIALIZED LIST PACKAGES ***
-%
-%\usepackage{algorithmic}
-% algorithmic.sty was written by Peter Williams and Rogerio Brito.
-% This package provides an algorithmic environment fo describing algorithms.
-% You can use the algorithmic environment in-text or within a figure
-% environment to provide for a floating algorithm. Do NOT use the algorithm
-% floating environment provided by algorithm.sty (by the same authors) or
-% algorithm2e.sty (by Christophe Fiorio) as IEEE does not use dedicated
-% algorithm float types and packages that provide these will not provide
-% correct IEEE style captions. The latest version and documentation of
-% algorithmic.sty can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithms/
-% There is also a support site at:
-% http://algorithms.berlios.de/index.html
-% Also of interest may be the (relatively newer and more customizable)
-% algorithmicx.sty package by Szasz Janos:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/algorithmicx/
-
-
-
-
-% *** ALIGNMENT PACKAGES ***
-%
-%\usepackage{array}
-% Frank Mittelbach's and David Carlisle's array.sty patches and improves
-% the standard LaTeX2e array and tabular environments to provide better
-% appearance and additional user controls. As the default LaTeX2e table
-% generation code is lacking to the point of almost being broken with
-% respect to the quality of the end results, all users are strongly
-% advised to use an enhanced (at the very least that provided by array.sty)
-% set of table tools. array.sty is already installed on most systems. The
-% latest version and documentation can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/required/tools/
-
-
-% IEEEtran contains the IEEEeqnarray family of commands that can be used to
-% generate multiline equations as well as matrices, tables, etc., of high
-% quality.
-
-
-
-
-% *** SUBFIGURE PACKAGES ***
-%\ifCLASSOPTIONcompsoc
-%  \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
-%\else
-%  \usepackage[caption=false,font=footnotesize]{subfig}
-%\fi
-% subfig.sty, written by Steven Douglas Cochran, is the modern replacement
-% for subfigure.sty, the latter of which is no longer maintained and is
-% incompatible with some LaTeX packages including fixltx2e. However,
-% subfig.sty requires and automatically loads Axel Sommerfeldt's caption.sty
-% which will override IEEEtran.cls' handling of captions and this will result
-% in non-IEEE style figure/table captions. To prevent this problem, be sure
-% and invoke subfig.sty's "caption=false" package option (available since
-% subfig.sty version 1.3, 2005/06/28) as this is will preserve IEEEtran.cls
-% handling of captions.
-% Note that the Computer Society format requires a larger sans serif font
-% than the serif footnote size font used in traditional IEEE formatting
-% and thus the need to invoke different subfig.sty package options depending
-% on whether compsoc mode has been enabled.
-%
-% The latest version and documentation of subfig.sty can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/subfig/
-
-
-
-
-% *** FLOAT PACKAGES ***
-%
-%\usepackage{fixltx2e}
-% fixltx2e, the successor to the earlier fix2col.sty, was written by
-% Frank Mittelbach and David Carlisle. This package corrects a few problems
-% in the LaTeX2e kernel, the most notable of which is that in current
-% LaTeX2e releases, the ordering of single and double column floats is not
-% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
-% single column figure to be placed prior to an earlier double column
-% figure. The latest version and documentation can be found at:
-% http://www.ctan.org/tex-archive/macros/latex/base/
-
-
-%\usepackage{stfloats}
-% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
-% the ability to do double column floats at the bottom of the page as well
-% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
-% LaTeX2e). It also provides a command:
-%\fnbelowfloat
-% to enable the placement of footnotes below bottom floats (the standard
-% LaTeX2e kernel puts them above bottom floats). This is an invasive package
-% which rewrites many portions of the LaTeX2e float routines. It may not work
-% with other packages that modify the LaTeX2e float routines. The latest
-% version and documentation can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/sttools/
-% Do not use the stfloats baselinefloat ability as IEEE does not allow
-% \baselineskip to stretch. Authors submitting work to the IEEE should note
-% that IEEE rarely uses double column equations and that authors should try
-% to avoid such use. Do not be tempted to use the cuted.sty or midfloat.sty
-% packages (also by Sigitas Tolusis) as IEEE does not format its papers in
-% such ways.
-% Do not attempt to use stfloats with fixltx2e as they are incompatible.
-% Instead, use Morten Hogholm'a dblfloatfix which combines the features
-% of both fixltx2e and stfloats:
-%
-% \usepackage{dblfloatfix}
-% The latest version can be found at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/dblfloatfix/
-
-
-
-
-% *** PDF, URL AND HYPERLINK PACKAGES ***
-%
-%\usepackage{url}
-% url.sty was written by Donald Arseneau. It provides better support for
-% handling and breaking URLs. url.sty is already installed on most LaTeX
-% systems. The latest version and documentation can be obtained at:
-% http://www.ctan.org/tex-archive/macros/latex/contrib/url/
-% Basically, \url{my_url_here}.
-
-
-
-
-% *** Do not adjust lengths that control margins, column widths, etc. ***
-% *** Do not use packages that alter fonts (such as pslatex).         ***
-% There should be no need to do such things with IEEEtran.cls V1.6 and later.
-% (Unless specifically asked to do so by the journal or conference you plan
-% to submit to, of course. )
-
-
-% correct bad hyphenation here
-% \hyphenation{op-tical net-works semi-conduc-tor}
-
 
 \begin{document}
-%
-% paper title
-% can use linebreaks \\ within to get better formatting as desired
-% Do not put math or special symbols in the title.
+
 \title{Bayesian networks and other machine learning techniques for sports predicting and betting}
 
-
-% author names and affiliations
-% use a multiple column layout for up to three different
-% affiliations
 \author{\IEEEauthorblockN{Maj Gaberšček}
 \IEEEauthorblockA{Faculty of Computer and Information Science, \\ Večna pot 113, 1000 Ljubljana, Slovenia \\
 Email: mg5781@student.uni-lj.si}}
 
-% conference papers do not typically use \thanks and this command
-% is locked out in conference mode. If really needed, such as for
-% the acknowledgment of grants, issue a \IEEEoverridecommandlockouts
-% after \documentclass
 
-% for over three affiliations, or if they all won't fit within the width
-% of the page, use this alternative format:
-% 
-%\author{\IEEEauthorblockN{Michael Shell\IEEEauthorrefmark{1},
-%Homer Simpson\IEEEauthorrefmark{2},
-%James Kirk\IEEEauthorrefmark{3}, 
-%Montgomery Scott\IEEEauthorrefmark{3} and
-%Eldon Tyrell\IEEEauthorrefmark{4}}
-%\IEEEauthorblockA{\IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
-%Georgia Institute of Technology,
-%Atlanta, Georgia 30332--0250\\ Email: see http://www.michaelshell.org/contact.html}
-%\IEEEauthorblockA{\IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA\\
-%Email: homer@thesimpsons.com}
-%\IEEEauthorblockA{\IEEEauthorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
-%Telephone: (800) 555--1212, Fax: (888) 555--1212}
-%\IEEEauthorblockA{\IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}}
-
-
-
-
-% use for special paper notices
-%\IEEEspecialpapernotice{(Invited Paper)}
-
-
-
-
-% make the title area
 \maketitle
 
-% As a general rule, do not put math, special symbols or citations
-% in the abstract
 \begin{abstract}
 The abstract goes here.
 \end{abstract}
 
-% no keywords
-
-
-
-
-% For peer review papers, you can put extra information on the cover
-% page as needed:
-% \ifCLASSOPTIONpeerreview
-% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
-% \fi
-%
-% For peerreview papers, this IEEEtran command inserts a page break and
-% creates the second title. It will be ignored for other modes.
 \IEEEpeerreviewmaketitle
-
-
 
 \section{Introduction}
 
@@ -409,12 +31,12 @@ as possible is the essence of every bookmaker. This article (and experiment) wil
 predicting the result of football matches in term of home win (home team scores more goals),
 draw (same goal amount for each team) and away win (away team scores more goals).
 
-First chapter of this paper contains information of related work. This includes a short recap
-of new discoveries regarding Bayesian networks (that will be later used in an experiment), 
-other machine learning techniques, that we use to predict sport results and also a summary of 
+First chapter of this paper will contain information of related work. This includes a short recap
+of new discoveries regarding Bayesian networks and
+other machine learning techniques, that are being used for predicting sports results and also a summary of 
 new discoveries in regard to betting on sports events.
 
-Second chapter will write about the experiment we conducted. We will describe how we acquired 
+Second chapter will talk about the experiment we conducted. We will describe how we acquired 
 data for our experiment, how the data was processed in order to be suitable for some machine 
 learning techniques. We will also describe, which machine learning techniques we used in our experiment.
 Then, we will talk about output data, that the algorithms will return and how to compare
@@ -422,11 +44,12 @@ results with each other. We will also discuss, which metrics for evaluation will
 and which metrics actually matter the most for our experiment (and in general, which metrics
 matter the most to bookmakers).
 
-Third chapter of this paper will focus on results of our experiment. There we will compare 
-different algorithms, that were applied to our data and evaluate each in regard to metrics.
+Third chapter of this paper will focus on results of our experiment. There, we will compare 
+different algorithms, that were applied to our data and evaluate each one, in regard to metrics.
 We will also discuss, how data size affects quality of our prediction. We will compare 
 returned probabilities for different match results, to probabilities, that were given by
-bookmaker. Finally, we will decide, whether our models are able to beat the odds.
+bookmaker. Finally, we will decide, whether our models are able to beat the odds by chosen bookmaker
+or not.
 
 Fourth and final chapter is called \emph{Conclusion}, where all important results will be 
 discussed. We will also evaluate our whole experiment and talk about the possible further work 
@@ -437,7 +60,7 @@ there.
 \section{Related Work}
 
 Unsurprisingly, a lot of work has already been done in this area, as sports betting is a field,
-where enormous amount of money is being made every day. First, we will talk about Bayesian networks.
+where enormous amount of money is being made every day. Firstly, we will talk about Bayesian networks.
 
 \subsection{Bayesian networks}
 
@@ -447,33 +70,38 @@ dependence, and therefore causation, by representing conditional dependence by
 edges in a directed graph. Edges in graph correspond to conditional dependency and 
 each node corresponds to a different random variable.
 
-Our goal in this article will be, to predict correct type of result for a game, similar 
-to the work done in article \cite{Razali_2017}. However, there will be many 
-differences in experiment, which will be pointed out during the article.
+Our goal in this article will be to predict the correct type of result for a game, similar 
+to the work done in article \cite{Razali_2017}. The author of that article used Bayesian
+nets on all available statistics of games and achieved 75 percent accuracy. Although, it must 
+be stated, that author used match statistics to predict result of the same match, which is not
+particularly useful, because match statistics cannot be known before the game. In this article,
+we will try to predict match result, only using data, that was already known \textbf{before}
+the game started.
 
 \subsection{Sports predicting}
 
 Betting in sports started with horse racing in the early 1900s. Although betting was 
 not always legal (depends on a specific country), that did not stop people to still
 gamble on sports events. That's why correctly predicting probabilities of sports 
-results were very important to bookmakers, ever since betting existed. That is why
+results were very important to bookmakers, ever since betting existed. Therefore
 machine learning was a very interesting option for bookmakers to consider, as it 
-was very objective and it used math and algorithms to predict results. Bookmakers 
-could now offer also odds for games and competitions, that they were not so very familiar 
+was very objective and it used math and algorithms to predict results. With machine learning, bookmakers 
+could also offer odds for games and competitions, that they were not so very familiar 
 with.
 
 First attempt to predict sports results with the help of machine learning was in
-1977, where the author of article \cite{Stefani_1977} used a technique called least squared model.
-This model was used to predict strength of opposing teams with goal scoring distribution matrix.
+1977, where the author of article \cite{Stefani_1977} used a technique called \textit{least squared model}.
+That model was used to predict strength of opposing teams with goal scoring distribution matrix.
 Observed accuracy in that model was 72 percent for college football games, 68 percent for pro 
 football games and 69 percent for college basketball games.
 
 First recorded usage of Bayesian networks in attempt to predict football results was used in
 year 2001, in article \cite{Rue_2001}. The authors took an applied statistician's approach to the problem, 
 suggesting a Bayesian dynamic generalized linear model to estimate the time-dependent 
-skills of all teams in a league, and to predict the next week-end's soccer matches.
+skills of all teams in a league and to predict the next week-end's football matches.
 
-Paper \cite{Joseph_2006} compared expert constructed Bayesian networks' ability to predict football 
+Paper \cite{Joseph_2006} from 2006 compared expert constructed Bayesian networks' ability to 
+predict football 
 results with other machine learning algorithms, such as decision tree learner, MC4, Naive Bayes learner,
 Data driven Bayesian nets (which we will be using in our experiment), $K$-nearest neighbours, etc. 
 The results from there confirmed, that Bayesian nets have great potential for predicting sport
@@ -487,12 +115,17 @@ of the game.
 
 \subsection{Betting in sports}
 
+This sub chapter contains some information about betting and explains some of the technical terms, such as 
+\textit{odds}. So if you are already familiar with betting, you are free to skip this part.
+
 Betting on sports events is almost as old as sport events itself. Bookmakers usually offer odds on 
 some event. Odds tell bettors how much money they will receive, if that event happens. Odds are therefore 
 directly related to the probability of the event. If probability of an event is higher, the odds for it will
-naturally be lower. Bookmakers also never offer totally fair odds. That way they assure themselves of a sure
-profit. For example, if a probability of an event is expected to be 50\%, bookmakers will never offer to pay 
-out double of what you bet, but a little less. For example, bet365 (betting website from which we will get our
+naturally be lower. Bookmakers also never offer totally fair odds. That way they assure themselves of a 
+guaranteed profit, over a long time period.
+For example, if a probability of an event is expected to be 50 percent, bookmakers will never offer to pay 
+out double of what you bet, but a little less. For example, bookmaker \texit{bet365} (betting website from
+which we will get our
 data), offers to pay out 1.90 times your bet, for an event with probability of 50\%. 
 
 Profiting from a betting market has also been extensively studied in the past. People sometimes compare odds from
@@ -500,8 +133,8 @@ different bookmakers, to find an arbitrage strategy. Profiting from an inefficie
 market has been studied in article \cite{Constantinou_2013} from 2013. In the paper, a Bayesian network is used
 for forecasting match outcomes. Profitability, risk and uncertainty are evaluated in there. Although the author
 presented a model, that is less complex then some previous ones, it returned better results. The model considers
-both objective and subjective information for prediction.  However, it is important to point out, that the model,
-which generated profit, was highly critically dependent on the knowledge of the expert. Performance, generated 
+both objective and subjective information for prediction.  However, it is important to point out, that the 
+model, which generated profit, was critically dependent on the knowledge of the expert. Performance, generated 
 only on past data, would not be as successful.
 
 \section{Experiment description}
@@ -510,16 +143,19 @@ This chapter contains all the description of how the experiment was carried out.
 
 \subsection{Tools used}
 
-The data tables were acquired from the web page \emph{Football-Data.co.uk}, and was in the \texttt{.csv} form.
-Then data was processed with a programming language \texttt{Python} and its library \texttt{pandas}. Then we
-applied different machine learning algorithms from \texttt{sklearn} package. Returned data was further processed 
-with \texttt{pandas}. All the plots, displayed in this paper, were made with \texttt{matplotlib} library.
+The data tables were acquired from the web page \emph{Football-Data.co.uk}, and were in the \texttt{.csv} form.
+Then data was processed with a programming language \texttt{Python} and its library \texttt{pandas}. After 
+that, we
+applied different machine learning algorithms from \texttt{scikit-learn} package \cite{scikit-learn}. Bayesian networks were applied 
+from the \texttt{pomegranate} library. Returned data was further processed 
+with \texttt{pandas}. All the plots, displayed in 
+this paper, were made with \texttt{matplotlib} library.
 
 \subsection{Data}
 
-As previously stated, all data of football games, was acquired from \emph{Football-Data.co.uk}. Data describes every
-football game of Spanish first division, LaLiga (Primera División), from season 2013/2014 to 2021/2022. Since each season has 
-380 games, total data set contained 3420 games. Every game was a row in the data and for each game, the columns represented 
+Data describes every
+football game of Spanish first division, La Liga (Primera División), from season 2013/2014 to 2021/2022. Since each season has 
+380 games, total data set contained 3420 games. Every game was a row in the data frame and for each game, the columns represented 
 the stats from the game. Some data was unnecessary for match result prediction, for example number of yellow cards from each game.
 Important statistics, that was later used in model construction, was:
 \begin{itemize}
@@ -538,22 +174,23 @@ Important statistics, that was later used in model construction, was:
     \item bet365 odds for draw
 \end{itemize}
 
-It is important to point out, that data in this form cannot be used to predict results. The data was aquired during the game,
+It is important to point out, that data in this form cannot be used to predict results. The data was being acquired during the game,
 but our prediction must be made before the game. It would of course be pointless to predict the result of the game, if we had 
-already known, how much goals any of the teams had scored. So we needed to find a way, to predict a result of the game, without using that game's data. We did that by using data from games, that happened before the match, that we are predicting. 
+already known, how much goals any of the teams had scored. So we needed to find a way, to predict a result of the game, 
+without using that game's data. We did that by using data from games, that happened before the match, that we are predicting. 
 That procedure is described in \emph{Data processing} subsection.
 
-Data of odds will be used to compare our algorithm's predicted probabilities with bookmaker's predicted probabilities.
+Odds data will be used to compare our algorithm's predicted probabilities with bookmaker's predicted probabilities.
 
 \subsection{Data processing}
 
-In order to transform the data, so we could construct models for predicting, we firstly dropped columns, that were not needed
-in data. Then each game was assigned a unique index. An iteration through data frame was performed, in order to obtain each team's
+In order to transform the data, so we could construct models for predicting, we firstly dropped those columns, which were not needed
+for predicting. Then each game was assigned a unique index. An iteration through data frame was performed, in order to obtain each team's
 order of playing. A new dictionary was defined, where team names were keys and values were ordered lists of game indexes. 
 
 Then another iteration was made through the original data frame. For each played game, we looked for $k$ (we tried different $k$-s
 and also compared results) previous games for home and away team. The general idea behind this was, that we determined strength of
-a team, based on its previous results. For example, points, that the team received in previous $k$ games were calculated, goals, that the home or away team scored were summed, etc.
+a team, based on its previous results. For example, points, that the team received in previous $k$ games were summed, etc.
 
 In the end, we got a new data frame, with the following columns:
 \begin{itemize}
@@ -577,13 +214,22 @@ In the end, we got a new data frame, with the following columns:
 Columns \textit{index} and \textit{odds} are in the data frame just for analysis purposes. They were not used in building models.
 All the other columns contain data, that was already available, before the game was played (for exception of column \texit{result}). Therefore, we can use that data to construct our model for predicting game results.
 
+Note, that time consumption to build Bayesian networks with
+\texttt{pomegranate} package grows exponentially with number of 
+variables. That is why we could not use all the variables to build the network
+in the experiment,
+so we had to pick the most important ones. As it turned out, most 
+features used could be bounded to 7. We decided to use the 
+result, points collected, shots given and shots conceded statistics
+for both teams. Other machin learning algorithms used all the columns (except 
+for odds).
+
 \subsection{Machine learning algorithms used}
 
-The purpose of building our model, was firstly, to predict the game result as well as possible, but also secondly, to see if our
+The purpose of building our model, was firstly, to predict the game result as well as possible, but also secondly also to see if our
 prediction can profit in the betting market. For example, if our algorithm predicts a home win to be the most probable final 
-result and the bookmaker also offers lowest odds on home win, we cannot tell for sure, if our prediction would be sufficient to
-profit. That is why we need our algorithms to return \textit{probabilities} for each game result. That way we can see, on which
-result it is profitable to bet.
+result and the bookmaker also offers lowest odds on home win, we could not tell for sure if our prediction would be sufficient to
+profit. That is why we need our algorithms to return \textit{probabilities} for each game result. That way we can see, which result is profitable to bet on.
 
 For that purpose, we only used \textbf{probabilistic classifiers}: Bayesian network, Naive Bayes classifier, Probabilistic neural 
 network and Probabilistic $k$ nearest neighbours algorithm (for different $k$). All of this methods return probabilities for each
@@ -591,10 +237,10 @@ class (home win, away win or draw).
 
 \subsection{Metrics for evaluation}
 
-In order to evaluate our predictions for different model, we will use standard metrics for evaluating probabilistic classifiers. 
+In order to evaluate our predictions for different models, we will use standard metrics for evaluating probabilistic classifiers. 
+
 The most important metric will be \textbf{Brier score}, which is defined as 
-$$\frac{1}{N} \sum_{i=1}^{N} \sum_{t=1}^{R} {(P(f_{ti}) - o_{ti})},$$ in which $R$ is the number of possible classes in which the
-event can fall, and $N$ the overall number of instances of all classes. $f_{ti}$ is the predicted probability for class $t$ to 
+$$\frac{1}{N} \sum_{i=1}^{N} \sum_{t=1}^{R} {(P(f_{ti}) - o_{ti})},$$ in which $R$ is the number of possible classes of an event and $N$ the overall number of instances (size of our experiment). $f_{ti}$ is the predicted probability for class $t$ to 
 happen in instance $i$. $o_{ti}$ is 1 if $i$-th event is of class $t$ and 0 otherwise. Better models have smaller Brier score.
 
 We will not be calculating the \textbf{logloss} metric, because our data is far too large for personal computer's numerical 
@@ -611,8 +257,14 @@ most unlikely to happen. That is why we will have a lot of false negatives there
 
 To merge both precision and recall, we will also calculated the harmonic mean \textbf{F1 score}.
 
-Last metric, that we will be using, will be \textbf{confusion matrix}. While this is not exactly a \textit{metric}, it will 
+Next metric, that we will be using, will be \textbf{confusion matrix}. While this is not exactly a \textit{metric}, it will 
 still provide with rich insight in our model's capability to predict a correct most probable result.
+
+Last metric that we will be using will be \textbf{betting 
+profitability}. We will compare returned probabilities with betting 
+odds. We will assume to bet if we find a profitable combination and 
+not to bet, if we do not. Then we will calculate our total profit for
+each model. Better models will have bigger profit (smaller loss).
 
 % TODO: dodaj https://towardsdatascience.com/comprehensive-guide-on-multiclass-classification-metrics-af94cfb83fbd
 
