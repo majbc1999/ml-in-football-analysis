@@ -1,0 +1,5 @@
+model,Brier score,precision,recall,F1 score
+Bayesian network,213.165,0.482,0.895,0.624
+Naive Bayes,212.93,0.565,0.695,0.622
+Neural network,206.651,0.535,0.741,0.612
+k-NN,243.136,0.503,0.694,0.582

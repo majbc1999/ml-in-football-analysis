@@ -1,0 +1,5 @@
+model,precision,recall,F1 score
+Bayesian network,0.482,0.895,0.624
+Naive Bayes,0.565,0.695,0.622
+Neural network,0.535,0.741,0.612
+k-NN,0.503,0.694,0.582
