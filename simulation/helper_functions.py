@@ -70,7 +70,6 @@ def test_model(learn_data, test_data, model):
     recall, F1, confusion_matrix and profit
     """
 
-
     features = learn_data.drop(columns=["index", "result", "odds_home", "odds_draw", "odds_away"])
 
     X = np.array(features)
@@ -123,7 +122,7 @@ def test_model(learn_data, test_data, model):
         final_result = test_y[id]
         
         # calculate profit
-        profit += return_profit(odds, probabilites, final_result)
+        profit += (return_profit(odds, probabilites, final_result) / len(test_data))
         
 
     # calculate rest of the metrics
@@ -231,7 +230,7 @@ def test_bayesian_networks_model(learn_data, test_data):
         final_result = test_y[id]
         
         # calculate profit
-        profit += return_profit(odds, probabilites, final_result)
+        profit += (return_profit(odds, probabilites, final_result) / len(test_data))
         
 
     # calculate rest of the metrics
