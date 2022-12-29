@@ -1,8 +1,26 @@
 
 \documentclass[conference]{IEEEtran}
-\ifCLASSINFOpdf
-\else
-\fi
+
+
+\usepackage{babel}
+\usepackage[table]{xcolor}
+\usepackage{collcell}
+\usepackage{hhline}
+\usepackage{pgf}
+\usepackage{multirow}
+
+\def\colorModel{hsb} 
+
+\newcommand\ColCell[1]{
+  \pgfmathparse{#1<850?1:0}  %Threshold for changing the font color into the cells
+    \ifnum\pgfmathresult=0\relax\color{white}\fi
+  \pgfmathsetmacro\compA{0}      %Component R or H
+  \pgfmathsetmacro\compB{#1/1500} %Component G or S
+  \pgfmathsetmacro\compC{1}      %Component B or B
+  \edef\x{\noexpand\centering\noexpand\cellcolor[\colorModel]{\compA,\compB,\compC}}\x #1
+  } 
+\newcolumntype{E}{>{\collectcell\ColCell}m{0.8cm}<{\endcollectcell}}  %Cell width
+\newcommand*\rot{\rotatebox{90}}
 
 \begin{document}
 
@@ -221,7 +239,10 @@ in the experiment,
 so we had to pick the most important ones. As it turned out, most 
 features used could be bounded to 7. We decided to use the 
 result, points collected, shots given and shots conceded statistics
-for both teams. Other machin learning algorithms used all the columns (except 
+for both teams. Also, Bayesian nets cannot work with continuous variables, that is 
+why we will group goals into classes.
+
+Other machine learning algorithms used all the columns (except 
 for odds).
 
 \subsection{Machine learning algorithms used}
@@ -240,16 +261,16 @@ class (home win, away win or draw).
 In order to evaluate our predictions for different models, we will use standard metrics for evaluating probabilistic classifiers. 
 
 The most important metric will be \textbf{Brier score}, which is defined as 
-$$\frac{1}{N} \sum_{i=1}^{N} \sum_{t=1}^{R} {(P(f_{ti}) - o_{ti})},$$ in which $R$ is the number of possible classes of an event and $N$ the overall number of instances (size of our experiment). $f_{ti}$ is the predicted probability for class $t$ to 
+$$\frac{1}{N} \sum_{i=1}^{N} \sum_{t=1}^{R} {(P(f_{ti}) - o_{ti})^2},$$ in which $R$ is the number of possible classes of an event and $N$ the overall number of instances (size of our experiment). $f_{ti}$ is the predicted probability for class $t$ to 
 happen in instance $i$. $o_{ti}$ is 1 if $i$-th event is of class $t$ and 0 otherwise. Better models have smaller Brier score.
 
-We will not be calculating the \textbf{logloss} metric, because our data is far too large for personal computer's numerical 
+We will not be calculating the \textbf{log-loss} metric, because our data is far too large for personal computer's numerical 
 precision.
 
 From here on, we will assume, that our model predicted the outcome, whose prediction percentage will be the highest. 
 
 Second metrics will be \textbf{precision} for each class. This is simply a percentage of correct predictions. The most important
-will be the recall for \textit{home win}, as this class should have overall the highest probability of occurrence.
+will be the precision for class \textit{home win}, as this class should have overall the highest probability of occurrence.
 
 We will also calculate \textbf{recall} for every class. The most important will again be the recall for \textit{home win}, as 
 this class should have overall the highest probability of occurrence. For example, a draw is harder to predict and usually 
@@ -263,14 +284,225 @@ still provide with rich insight in our model's capability to predict a correct m
 Last metric that we will be using will be \textbf{betting 
 profitability}. We will compare returned probabilities with betting 
 odds. We will assume to bet if we find a profitable combination and 
-not to bet, if we do not. Then we will calculate our total profit for
+not to bet, if we do not. For example, assume that the returned probabilities are 50\% for a home win, 30\% for a draw and 20\% for an away win. If bookmaker offers equal odds of 2.9 for each outcome, it is most profitable to bet on home win with expected profit
+$$E(profit) = 1.9 \cdot 0.5 - 1 \cdot 0.5 = 0.45, $$
+as we profit 1.9 times our stake with probability of 50\% (home win) and 
+lose invested money with 50\% probability (away win or draw). However, if
+bookmaker would offer odds of 1.9 for home win, 3.2 for draw and 4.8 for away win and model would return the same probabilities, no bet would be expected to return profit. In that case, we decide not to bet any money.
+Then we will look at results that happened in real life and calculate how much money we would make or lose with our bets.
+That way we will calculate our total profit for
 each model. Better models will have bigger profit (smaller loss).
 
 % TODO: dodaj https://towardsdatascience.com/comprehensive-guide-on-multiclass-classification-metrics-af94cfb83fbd
 
 \section{Results}
+
+In this chapter, experiment results will be described. We will evaluate each algorithm
+in regard to metrics, that were described before. The most important aspect of evaluation
+will be interpreting the confusion matrix.
+
 \subsection{Evaluation}
-\subsubsection{Algorithm comparison}
+
+As an attempt to evaluate our model, we performed a $k$-fold cross validation
+for $k=10$. That means that we grouped our data into 10 equally sized groups. We 
+chose the first group as our test data and created models from the other 9 
+groups. After that, we tested our models on test data (first group). We save the
+returned metrics and repeat the procedure, just that this time second group of our data 
+will be for testing and models will be build from other nine groups. After repeating this
+procedure for each group, we calculate averages of each metric and sum all the elements
+of confusion matrix. 
+
+First metric, that is used for evaluation, is the Brier score. 
+
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{ll}
+        model & Brier score \\ \hline
+        \textbf{Neural network} & 206.651 \\ 
+        \textbf{Naive Bayes} & 212.93 \\ 
+        \textbf{Bayesian network} & 213.165 \\ 
+        \textbf{k-NN} & 243.136 \\ 
+    \end{tabular}
+\end{table}
+
+As stated in chapter \textit{Metrics for evaluation}, better models will have a lower Brier score.
+Neural network has a lowest Brier score, followed by Naive Bayes, which has a similar
+value as Bayesian network. Algorithm $k$-NN has the worst Brier score.
+
+If we compare each model's accuracy, the below table tells us, that Naive Bayes has a highest accuracy of
+almost 50 percent, closely followed by Neural Network.
+
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{ll}
+        model & accuracy \\ \hline
+        \textbf{Naive Bayes} & 0.491 \\ 
+        \textbf{Neural network} & 0.482 \\ 
+        \textbf{Bayesian network} & 0.469 \\ 
+        \textbf{k-NN} & 0.433 \\ 
+    \end{tabular}
+\end{table}
+
+
+
+Next table has data about precision and recall for \textit{home win} value. The F1 score is also
+calculated for \textit{home wins}.
+
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{llll}
+        model & precision & recall & F1 score \\ \hline
+        \textbf{Bayesian network} & 0.482 & 0.895 & 0.624 \\ 
+        \textbf{Naive Bayes} & 0.565 & 0.695 & 0.622 \\ 
+        \textbf{Neural network} & 0.535 & 0.741 & 0.612 \\ 
+        \textbf{k-NN} & 0.503 & 0.694 & 0.582 \\ 
+    \end{tabular}
+\end{table}
+
+
+If we compare the trade off between precision and recall for each model, Bayesian network
+has the highest F1 score. However, as we can see from the table, the recall is quite high and
+precision is low. That means, that the model predicted a lot of false positives and not a lot 
+of false negatives. That basically means, that if the outcome was indeed a \textit{home win},
+Bayesian network was very successful at predicting, but if the outcome was not a \textit{home win},
+model still falsely predicted the outcome many times. F1 score optimizes combination of precision 
+and recall. 
+
+However, in this example, precision and recall are calculated only for \textit{home win}
+class. While we can state, that Bayesian network is indeed the best model for predicting 
+\textit{home wins}, we for sure cannot imply that this model is also best for other predictions.
+Another example to confirm this will be to define a simple trivial model, that predicts a home win in 
+every game, regardless to statistics. That model would have a recall of 1, as it would never falsely 
+predict an outcome, if the real outcome would be a home win. It would have a precision of 0.45, as
+45\% of all games in our data frame resulted in a home win. So the F1 score would be:
+$$F1 = \frac{2 \cdot precision \cdot recall}{precision + recall} = 0.62,$$ which would still be better than,
+for example Neural network. 
+
+The profit metric will be analyzed in the last subsection of this chapter, \textit{Beating the bookmakers}. The last and most important aspect of this subsection is interpreting the confusion matrix for each model. 
+
+\begin{figure}[!ht]
+\begin{center}
+\newcommand\items{3}   %Number of classes
+\arrayrulecolor{white} %Table line colors
+\noindent\begin{tabular}{cc*{\items}{|E}|}
+\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{\items}{c}{Predicted} \\ \hhline{~*\items{|-}|}
+\multicolumn{1}{c}{} & 
+\multicolumn{1}{c}{} & 
+\multicolumn{1}{c}{\rot{home win}} & 
+\multicolumn{1}{c}{\rot{draw}} & 
+\multicolumn{1}{c}{\rot{away win}} \\ \hhline{~*\items{|-}|}
+\multirow{\items}{*}{\rotatebox{90}{Actual}} 
+&home win   & 1359   & 19  & 140   \\ \hhline{~*\items{|-}|}
+&draw       & 731   & 11  & 104   \\ \hhline{~*\items{|-}|}
+&away win   & 741   & 20   & 183   \\ \hhline{~*\items{|-}|}
+\end{tabular}
+\end{center}
+\caption{Confusion matrix for Bayesian network}
+\label{conf_mat_bn}
+\end{figure}
+
+First confusion matrix is for Bayesian network, presented in Figure \ref{conf_mat_bn}. By observing
+the matrix, we can clearly see, where the problem of this model is. The model predicts a match to end
+in a \textit{home win} too often. Even in matches, where the away team won (which is the opposite of 
+home team winning), the model still mostly predicted home wins. 
+
+Even when the model predicted an away win or a draw, it still did not do well. For example, in cases where
+model supposed an away win, it still didn't predict correctly more than half times (it predicted an away 
+win with precision of 42.8\%). With more than 800 actual matches ending in a draw, Bayesian network 
+predicted only 50 games to end in a draw. 
+
+It is therefore safe to say, that the Bayesian networks did not meet with the expectations. It must 
+however be pointed out, that we used fewer statistics to build this model, due to time complexity. 
+Therefore we expected for the results to not be as accurate as other models'.
+
+\begin{figure}[!ht]
+\begin{center}
+\newcommand\items{3}   %Number of classes
+\arrayrulecolor{white} %Table line colors
+\noindent\begin{tabular}{cc*{\items}{|E}|}
+\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{\items}{c}{Predicted} \\ \hhline{~*\items{|-}|}
+\multicolumn{1}{c}{} & 
+\multicolumn{1}{c}{} & 
+\multicolumn{1}{c}{\rot{home win}} & 
+\multicolumn{1}{c}{\rot{draw}} & 
+\multicolumn{1}{c}{\rot{away win}} \\ \hhline{~*\items{|-}|}
+\multirow{\items}{*}{\rotatebox{90}{Actual}} 
+&home win   & 1053   & 266  & 199   \\ \hhline{~*\items{|-}|}
+&draw       & 539   & 139  & 168   \\ \hhline{~*\items{|-}|}
+&away win   & 504   & 198   & 242   \\ \hhline{~*\items{|-}|}
+\end{tabular}
+\end{center}
+\caption{Confusion matrix for k-NN model}
+\label{conf_mat_knn}
+\end{figure}
+
+Second confusion matrix is for $k$ nearest neighbours model and can be seen in Figure \ref{conf_mat_knn}.
+Similarly as in previous model, the Bayesian network, $k$-NN predicted mostly home wins for every actual
+outcome. So the recall would again be quite low for any other class than \textit{home win}, but still 
+not as low as for Bayesian network. 
+
+At least the model predicted a more realistic number of draws and away wins. However, the precision 
+for both of those classes were not much higher than Bayesian network. This model was made for $k=5$, 
+however should work better for bigger $k$ (finding more similar games and comparing final result). 
+Comparing model's ability to accurately predict games can be found in the next subsection, \textit{Parameter effect on results}.
+
+\begin{figure}[!ht]
+\begin{center}
+\newcommand\items{3}   %Number of classes
+\arrayrulecolor{white} %Table line colors
+\noindent\begin{tabular}{cc*{\items}{|E}|}
+\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{\items}{c}{Predicted} \\ \hhline{~*\items{|-}|}
+\multicolumn{1}{c}{} & 
+\multicolumn{1}{c}{} & 
+\multicolumn{1}{c}{\rot{home win}} & 
+\multicolumn{1}{c}{\rot{draw}} & 
+\multicolumn{1}{c}{\rot{away win}} \\ \hhline{~*\items{|-}|}
+\multirow{\items}{*}{\rotatebox{90}{Actual}} 
+&home win   & 1054   & 124  & 340   \\ \hhline{~*\items{|-}|}
+&draw       & 433   & 113  & 300   \\ \hhline{~*\items{|-}|}
+&away win   & 381   & 105   & 458   \\ \hhline{~*\items{|-}|}
+\end{tabular}
+\end{center}
+\caption{Confusion matrix for Naive Bayes}
+\label{conf_mat_nb}
+\end{figure}
+
+Next confusion matrix is presented in Figure \ref{conf_mat_nb}, for Naive Bayes model. Observing the
+confusion matrix, we can see, that this model predicts far better than the previous two. For games, 
+where final result was an away win, Naive Bayes predicted an \textit{away win} (accurately) in most
+cases. Even when a draw happened, the model did not predict a \textit{home win} with such big margin 
+to other two predictions, but also predicted the away team to win quite often. The recall for classes 
+\textit{away win} and \textit{draw} is considerably higher than those for Bayesian network and $k$-NN.
+
+If we look at precision, it is also quite good (compared to other models), with precision of 33\% for 
+class \textit{draw} and 38\% for \textit{away win}.
+
+\begin{figure}[!ht]
+\begin{center}
+\newcommand\items{3}   %Number of classes
+\arrayrulecolor{white} %Table line colors
+\noindent\begin{tabular}{cc*{\items}{|E}|}
+\multicolumn{1}{c}{} &\multicolumn{1}{c}{} &\multicolumn{\items}{c}{Predicted} \\ \hhline{~*\items{|-}|}
+\multicolumn{1}{c}{} & 
+\multicolumn{1}{c}{} & 
+\multicolumn{1}{c}{\rot{home win}} & 
+\multicolumn{1}{c}{\rot{draw}} & 
+\multicolumn{1}{c}{\rot{away win}} \\ \hhline{~*\items{|-}|}
+\multirow{\items}{*}{\rotatebox{90}{Actual}} 
+&home win   & 1134   & 128  & 256   \\ \hhline{~*\items{|-}|}
+&draw       & 515   & 96  & 235   \\ \hhline{~*\items{|-}|}
+&away win   & 482   & 97   & 365   \\ \hhline{~*\items{|-}|}
+\end{tabular}
+\end{center}
+\caption{Confusion matrix for Neural network}
+\label{conf_mat_nn}
+\end{figure}
+
+Last confusion matrix belongs to Neural network model and is show in Figure \ref{conf_mat_nn}.
+It seems as Neural network again has the home win bias as in all three actual outcomes, the model
+mostly predicted the \textit{home win} class. The recall is again low for \textit{draw} and \textit{away
+win}, 12\% and 39\% respectively.
+
 \subsection{Parameter effect on results}
 \subsection{Probabilities in comparison to betting odds}
 \subsection{Beating the bookmakers}
