@@ -77,6 +77,7 @@ def test_model(learn_data, test_data, model):
 
     model.fit(X, y)
 
+    modified_brier_score = 0
     brier_score = 0
     confusion_matrix = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
     profit = 0
@@ -110,6 +111,11 @@ def test_model(learn_data, test_data, model):
         else:
             raise ValueError
 
+        odds = test_odds[id]
+        # calculate modified brier score
+        for i in range(3):
+            modified_brier_score += (probabilites[i] - (1 / odds[i])) ** 2
+
 
         # calculate brier score
         for i in range(3):
@@ -118,7 +124,6 @@ def test_model(learn_data, test_data, model):
         # confusion matrix
         confusion_matrix[c_matrix_act][c_matrix_pred] += 1
 
-        odds = test_odds[id]
         final_result = test_y[id]
         
         # calculate profit
@@ -131,7 +136,7 @@ def test_model(learn_data, test_data, model):
 
     F1 = 2 * (precision * recall) / (precision + recall)
 
-    return brier_score, precision, recall, F1, confusion_matrix, profit
+    return brier_score, precision, recall, F1, confusion_matrix, profit, modified_brier_score
 
 
 def discretize_dataframe(data):
@@ -171,6 +176,7 @@ def test_bayesian_networks_model(learn_data, test_data):
 
 
     brier_score = 0
+    modified_brier_score = 0
     confusion_matrix = [[0,0,0], [0,0,0], [0,0,0]]
     profit = 0
 
@@ -218,6 +224,11 @@ def test_bayesian_networks_model(learn_data, test_data):
         else:
             raise ValueError
 
+        odds = test_odds[id]
+
+        # calculate modified brier score
+        for i in range(3):
+            modified_brier_score += (probabilites[i] - (1 / odds[i])) ** 2
 
         # calculate brier score
         for i in range(3):
@@ -226,7 +237,6 @@ def test_bayesian_networks_model(learn_data, test_data):
         # confusion matrix
         confusion_matrix[c_matrix_act][c_matrix_pred] += 1
 
-        odds = test_odds[id]
         final_result = test_y[id]
         
         # calculate profit
@@ -239,4 +249,4 @@ def test_bayesian_networks_model(learn_data, test_data):
 
     F1 = 2 * (precision * recall) / (precision + recall)
 
-    return brier_score, precision, recall, F1, confusion_matrix, profit
+    return brier_score, precision, recall, F1, confusion_matrix, profit, modified_brier_score
