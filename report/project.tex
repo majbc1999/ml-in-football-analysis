@@ -1,6 +1,4 @@
-
 \documentclass[conference]{IEEEtran}
-
 
 \usepackage{babel}
 \usepackage[table]{xcolor}
@@ -49,25 +47,25 @@ as possible is the essence of every bookmaker. This article (and experiment) wil
 predicting the result of football matches in term of home win (home team scores more goals),
 draw (same goal amount for each team) and away win (away team scores more goals).
 
-First chapter of this paper will contain information of related work. This includes a short recap
-of new discoveries regarding Bayesian networks and
-other machine learning techniques, that are being used for predicting sports results and also a summary of 
+First chapter of this paper will contain information of related work. This includes a 
+short recap of new discoveries regarding Bayesian networks and other machine learning 
+techniques, that are being used for predicting sports results and also a summary of 
 new discoveries in regard to betting on sports events.
 
 Second chapter will talk about the experiment we conducted. We will describe how we acquired 
 data for our experiment, how the data was processed in order to be suitable for some machine 
-learning techniques. We will also describe, which machine learning techniques we used in our experiment.
-Then, we will talk about output data, that the algorithms will return and how to compare
-results with each other. We will also discuss, which metrics for evaluation will be useful,
-and which metrics actually matter the most for our experiment (and in general, which metrics
-matter the most to bookmakers).
+learning techniques. We will also describe, which machine learning techniques we used in 
+our experiment. Then, we will talk about output data, that the algorithms will 
+return and how to compare results with each other. We will also discuss, which metrics 
+for evaluation will be useful, and which metrics actually matter the most for our 
+experiment (and in general, which metrics matter the most to bookmakers).
 
 Third chapter of this paper will focus on results of our experiment. There, we will compare 
 different algorithms, that were applied to our data and evaluate each one, in regard to metrics.
 We will also discuss, how data size affects quality of our prediction. We will compare 
 returned probabilities for different match results, to probabilities, that were given by
-bookmaker. Finally, we will decide, whether our models are able to beat the odds by chosen bookmaker
-or not.
+bookmaker. Finally, we will decide, whether our models are able to beat the odds by 
+chosen bookmaker or not.
 
 Fourth and final chapter is called \emph{Conclusion}, where all important results will be 
 discussed. We will also evaluate our whole experiment and talk about the possible further work 
@@ -78,7 +76,8 @@ there.
 \section{Related Work}
 
 Unsurprisingly, a lot of work has already been done in this area, as sports betting is a field,
-where enormous amount of money is being made every day. Firstly, we will talk about Bayesian networks.
+where enormous amount of money is being made every day. Firstly, we will talk about 
+Bayesian networks.
 
 \subsection{Bayesian networks}
 
@@ -103,29 +102,32 @@ not always legal (depends on a specific country), that did not stop people to st
 gamble on sports events. That's why correctly predicting probabilities of sports 
 results were very important to bookmakers, ever since betting existed. Therefore
 machine learning was a very interesting option for bookmakers to consider, as it 
-was very objective and it used math and algorithms to predict results. With machine learning, bookmakers 
-could also offer odds for games and competitions, that they were not so very familiar 
-with.
+was very objective and it used math and algorithms to predict results. With machine 
+learning, bookmakers could also offer odds for games and competitions, that they 
+were not so very familiar with.
 
 First attempt to predict sports results with the help of machine learning was in
-1977, where the author of article \cite{Stefani_1977} used a technique called \textit{least squared model}.
-That model was used to predict strength of opposing teams with goal scoring distribution matrix.
-Observed accuracy in that model was 72 percent for college football games, 68 percent for pro 
+1977, where the author of article \cite{Stefani_1977} used a technique called 
+\textit{least squared model}. That model was used to predict strength of opposing 
+teams with goal scoring distribution matrix. Observed accuracy in that model 
+was 72 percent for college football games, 68 percent for pro 
 football games and 69 percent for college basketball games.
 
 First recorded usage of Bayesian networks in attempt to predict football results was used in
-year 2001, in article \cite{Rue_2001}. The authors took an applied statistician's approach to the problem, 
-suggesting a Bayesian dynamic generalized linear model to estimate the time-dependent 
-skills of all teams in a league and to predict the next week-end's football matches.
+year 2001, in article \cite{Rue_2001}. The authors took an applied statistician's 
+approach to the problem, suggesting a Bayesian dynamic generalized linear model to 
+estimate the time-dependent skills of all teams in a league and to predict the next 
+week-end's football matches.
 
-Paper \cite{Joseph_2006} from 2006 compared expert constructed Bayesian networks' ability to 
-predict football 
-results with other machine learning algorithms, such as decision tree learner, MC4, Naive Bayes learner,
-Data driven Bayesian nets (which we will be using in our experiment), $K$-nearest neighbours, etc. 
-The results from there confirmed, that Bayesian nets have great potential for predicting sport
-results, as the authors had predictive accuracy of almost 60 percent, compared to second best
-algorithm, $K$-nearest neighbours, which had an accuracy of little above 50 percent. Data, that the authors 
-used for prediction, were home advantage, opposition team quality and characteristics of team's best players.
+Paper \cite{Joseph_2006} from 2006 compared expert constructed Bayesian networks' 
+ability to predict football results with other machine learning algorithms, such as 
+decision tree learner, MC4, Naive Bayes learner, Data driven Bayesian nets (which we 
+will be using in our experiment), $K$-nearest neighbours, etc. The results from there 
+confirmed, that Bayesian nets have great potential for predicting sport results, as the 
+authors had predictive accuracy of almost 60 percent, compared to second best algorithm, 
+$K$-nearest neighbours, which had an accuracy of little above 50 percent. Data, that 
+the authors  used for prediction, were home advantage, opposition team quality and 
+characteristics of team's best players.
 
 
 In 2010, article \cite{Baio_2010} proposed Bayesian hierarchical model, to predict final result 
@@ -133,27 +135,29 @@ of the game.
 
 \subsection{Betting in sports}
 
-This sub chapter contains some information about betting and explains some of the technical terms, such as 
-\textit{odds}. So if you are already familiar with betting, you are free to skip this part.
+This sub chapter contains some information about betting and explains some of the 
+technical terms, such as \textit{odds}. So if you are already familiar with betting, 
+you are free to skip this part.
 
-Betting on sports events is almost as old as sport events itself. Bookmakers usually offer odds on 
-some event. Odds tell bettors how much money they will receive, if that event happens. Odds are therefore 
-directly related to the probability of the event. If probability of an event is higher, the odds for it will
-naturally be lower. Bookmakers also never offer totally fair odds. That way they assure themselves of a 
-guaranteed profit, over a long time period.
-For example, if a probability of an event is expected to be 50 percent, bookmakers will never offer to pay 
-out double of what you bet, but a little less. For example, bookmaker \texit{bet365} (betting website from
-which we will get our
-data), offers to pay out 1.90 times your bet, for an event with probability of 50\%. 
+Betting on sports events is almost as old as sport events itself. Bookmakers usually 
+offer odds on some event. Odds tell bettors how much money they will receive, if that 
+event happens. Odds are therefore directly related to the probability of the event. If 
+probability of an event is higher, the odds for it will naturally be lower. Bookmakers also
+never offer totally fair odds. That way they assure themselves of a guaranteed profit, over 
+a long time period. For example, if a probability of an event is expected to be 50 percent,
+bookmakers will never offer to pay out double of what you bet, but a little less. For example,
+bookmaker \textit{bet365} (betting website from which we will get our data), offers to pay out
+1.90 times your bet, for an event with probability of 50\%. 
 
-Profiting from a betting market has also been extensively studied in the past. People sometimes compare odds from
-different bookmakers, to find an arbitrage strategy. Profiting from an inefficient association football gambling
-market has been studied in article \cite{Constantinou_2013} from 2013. In the paper, a Bayesian network is used
-for forecasting match outcomes. Profitability, risk and uncertainty are evaluated in there. Although the author
-presented a model, that is less complex then some previous ones, it returned better results. The model considers
-both objective and subjective information for prediction.  However, it is important to point out, that the 
-model, which generated profit, was critically dependent on the knowledge of the expert. Performance, generated 
-only on past data, would not be as successful.
+Profiting from a betting market has also been extensively studied in the past. People sometimes
+compare odds from different bookmakers, to find an arbitrage strategy. Profiting from an 
+inefficient association football gambling market has been studied in article 
+\cite{Constantinou_2013} from 2013. In the paper, a Bayesian network is used for forecasting
+match outcomes. Profitability, risk and uncertainty are evaluated in there. Although the author
+presented a model, that is less complex then some previous ones, it returned better results.
+The model considers both objective and subjective information for prediction.  However, it is
+important to point out, that the model, which generated profit, was critically dependent on the
+knowledge of the expert. Performance, generated only on past data, would not be as successful.
 
 \section{Experiment description}
 
@@ -161,21 +165,22 @@ This chapter contains all the description of how the experiment was carried out.
 
 \subsection{Tools used}
 
-The data tables were acquired from the web page \emph{Football-Data.co.uk}, and were in the \texttt{.csv} form.
-Then data was processed with a programming language \texttt{Python} and its library \texttt{pandas}. After 
-that, we
-applied different machine learning algorithms from \texttt{scikit-learn} package \cite{scikit-learn}. Bayesian networks were applied 
+The data tables were acquired from the web page \emph{Football-Data.co.uk}, and were in the
+\texttt{.csv} form. Then data was processed with a programming language \texttt{Python} and 
+its library \texttt{pandas}. After that, we applied different machine learning algorithms from
+\texttt{scikit-learn} package \cite{scikit-learn}. Bayesian networks were applied 
 from the \texttt{pomegranate} library. Returned data was further processed 
-with \texttt{pandas}. All the plots, displayed in 
-this paper, were made with \texttt{matplotlib} library.
+with \texttt{pandas}. All the plots, displayed in this paper, were made with 
+\texttt{matplotlib} library.
 
 \subsection{Data}
 
-Data describes every
-football game of Spanish first division, La Liga (Primera División), from season 2013/2014 to 2021/2022. Since each season has 
-380 games, total data set contained 3420 games. Every game was a row in the data frame and for each game, the columns represented 
-the stats from the game. Some data was unnecessary for match result prediction, for example number of yellow cards from each game.
-Important statistics, that was later used in model construction, was:
+Data describes every football game of Spanish first division, La Liga (Primera División), 
+from season 2013/2014 to 2021/2022. Since each season has 380 games, total data set contained 
+3420 games. Every game was a row in the data frame and for each game, the columns represented 
+the stats from the game. Some data was unnecessary for match result prediction, for example
+number of yellow cards from each game. Important statistics, that was later used in 
+model construction, was:
 \begin{itemize}
     \item date of the game,
     \item home team name,
@@ -192,23 +197,30 @@ Important statistics, that was later used in model construction, was:
     \item bet365 odds for draw
 \end{itemize}
 
-It is important to point out, that data in this form cannot be used to predict results. The data was being acquired during the game,
-but our prediction must be made before the game. It would of course be pointless to predict the result of the game, if we had 
-already known, how much goals any of the teams had scored. So we needed to find a way, to predict a result of the game, 
-without using that game's data. We did that by using data from games, that happened before the match, that we are predicting. 
-That procedure is described in \emph{Data processing} subsection.
+It is important to point out, that data in this form cannot be used to predict results. 
+The data was being acquired during the game, but our prediction must be made before the game.
+It would of course be pointless to predict the result of the game, if we had already known, 
+how much goals any of the teams had scored. So we needed to find a way, to predict a result 
+of the game, without using that game's data. We did that by using data from games, that 
+happened before the match, that we are predicting. That procedure is described in \emph{Data
+processing} subsection.
 
-Odds data will be used to compare our algorithm's predicted probabilities with bookmaker's predicted probabilities.
+Odds data will be used to compare our algorithm's predicted probabilities with bookmaker's
+predicted probabilities.
 
 \subsection{Data processing}
 
-In order to transform the data, so we could construct models for predicting, we firstly dropped those columns, which were not needed
-for predicting. Then each game was assigned a unique index. An iteration through data frame was performed, in order to obtain each team's
-order of playing. A new dictionary was defined, where team names were keys and values were ordered lists of game indexes. 
+In order to transform the data, so we could construct models for predicting, we firstly 
+dropped those columns, which were not needed for predicting. Then each game was assigned a 
+unique index. An iteration through data frame was performed, in order to obtain each team's
+order of playing. A new dictionary was defined, where team names were keys and values were
+ordered lists of game indexes. 
 
-Then another iteration was made through the original data frame. For each played game, we looked for $k$ (we tried different $k$-s
-and also compared results) previous games for home and away team. The general idea behind this was, that we determined strength of
-a team, based on its previous results. For example, points, that the team received in previous $k$ games were summed, etc.
+Then another iteration was made through the original data frame. For each played game, we
+looked for $k$ (we tried different $k$-s and also compared results) previous games for home 
+and away team. The general idea behind this was, that we determined strength of a team, 
+based on its previous results. For example, points, that the team received in previous $k$ 
+games were summed, etc.
 
 In the end, we got a new data frame, with the following columns:
 \begin{itemize}
@@ -229,71 +241,80 @@ In the end, we got a new data frame, with the following columns:
     team, it the past $k$ games. Note, that corner difference is calculated by subtracting opponent corners from team corners. 
 \end{itemize}
 
-Columns \textit{index} and \textit{odds} are in the data frame just for analysis purposes. They were not used in building models.
-All the other columns contain data, that was already available, before the game was played (for exception of column \texit{result}). Therefore, we can use that data to construct our model for predicting game results.
+Columns \textit{index} and \textit{odds} are in the data frame just for analysis purposes. 
+They were not used in building models. All the other columns contain data, that was already
+available, before the game was played (for exception of column \textit{result}). Therefore, 
+we can use that data to construct our model for predicting game results.
 
-Note, that time consumption to build Bayesian networks with
-\texttt{pomegranate} package grows exponentially with number of 
-variables. That is why we could not use all the variables to build the network
-in the experiment,
-so we had to pick the most important ones. As it turned out, most 
-features used could be bounded to 7. We decided to use the 
-result, points collected, shots given and shots conceded statistics
-for both teams. Also, Bayesian nets cannot work with continuous variables, that is 
-why we will group goals into classes.
+Note, that time consumption to build Bayesian networks with \texttt{pomegranate} package 
+grows exponentially with number of variables. That is why we could not use all the variables 
+to build the network in the experiment, so we had to pick the most important ones. As it 
+turned out, most features used could be bounded to 7. We decided to use the 
+result, points collected, shots given and shots conceded statistics for both teams. Also, 
+Bayesian nets cannot work with continuous variables, that is why we will group goals into
+classes.
 
-Other machine learning algorithms used all the columns (except 
-for odds).
+Other machine learning algorithms used all the columns (except for odds).
 
 \subsection{Machine learning algorithms used}
 
-The purpose of building our model, was firstly, to predict the game result as well as possible, but also secondly also to see if our
-prediction can profit in the betting market. For example, if our algorithm predicts a home win to be the most probable final 
-result and the bookmaker also offers lowest odds on home win, we could not tell for sure if our prediction would be sufficient to
-profit. That is why we need our algorithms to return \textit{probabilities} for each game result. That way we can see, which result is profitable to bet on.
+The purpose of building our model, was firstly, to predict the game result as well as possible,
+but also secondly also to see if our prediction can profit in the betting market. For example,
+if our algorithm predicts a home win to be the most probable final result and the bookmaker
+also offers lowest odds on home win, we could not tell for sure if our prediction would be
+sufficient to profit. That is why we need our algorithms to return \textit{probabilities} for
+each game result. That way we can see, which result is profitable to bet on.
 
-For that purpose, we only used \textbf{probabilistic classifiers}: Bayesian network, Naive Bayes classifier, Probabilistic neural 
-network and Probabilistic $k$ nearest neighbours algorithm (for different $k$). All of this methods return probabilities for each
-class (home win, away win or draw).
+For that purpose, we only used \textbf{probabilistic classifiers}: Bayesian network, Naive
+Bayes classifier, Probabilistic neural network and Probabilistic $k$ nearest neighbours
+algorithm (for different $k$). All of this methods return probabilities for each class (home
+win, away win or draw).
 
 \subsection{Metrics for evaluation}
 
 In order to evaluate our predictions for different models, we will use standard metrics for evaluating probabilistic classifiers. 
 
 The most important metric will be \textbf{Brier score}, which is defined as 
-$$\frac{1}{N} \sum_{i=1}^{N} \sum_{t=1}^{R} {(P(f_{ti}) - o_{ti})^2},$$ in which $R$ is the number of possible classes of an event and $N$ the overall number of instances (size of our experiment). $f_{ti}$ is the predicted probability for class $t$ to 
-happen in instance $i$. $o_{ti}$ is 1 if $i$-th event is of class $t$ and 0 otherwise. Better models have smaller Brier score.
+$$\frac{1}{N} \sum_{i=1}^{N} \sum_{t=1}^{R} {(P(f_{ti}) - o_{ti})^2},$$ in which $R$ is the
+number of possible classes of an event and $N$ the overall number of instances (size of our
+experiment). $f_{ti}$ is the predicted probability for class $t$ to happen in instance $i$.
+$o_{ti}$ is 1 if $i$-th event is of class $t$ and 0 otherwise. Better models have smaller 
+Brier score.
 
-We will not be calculating the \textbf{log-loss} metric, because our data is far too large for personal computer's numerical 
-precision.
+We will not be calculating the \textbf{log-loss} metric, because our data is far too large 
+for personal computer's numerical precision.
 
-From here on, we will assume, that our model predicted the outcome, whose prediction percentage will be the highest. 
+From here on, we will assume, that our model predicted the outcome, whose prediction 
+percentage will be the highest. 
 
-Second metrics will be \textbf{precision} for each class. This is simply a percentage of correct predictions. The most important
-will be the precision for class \textit{home win}, as this class should have overall the highest probability of occurrence.
+Second metrics will be \textbf{precision} for each class. This is simply a percentage of
+correct predictions. The most important will be the precision for class \textit{home win}, as
+this class should have overall the highest probability of occurrence.
 
-We will also calculate \textbf{recall} for every class. The most important will again be the recall for \textit{home win}, as 
-this class should have overall the highest probability of occurrence. For example, a draw is harder to predict and usually 
-most unlikely to happen. That is why we will have a lot of false negatives there.
+We will also calculate \textbf{recall} for every class. The most important will again be the
+recall for \textit{home win}, as this class should have overall the highest probability of
+occurrence. For example, a draw is harder to predict and usually most unlikely to happen. That
+is why we will have a lot of false negatives there.
 
 To merge both precision and recall, we will also calculated the harmonic mean \textbf{F1 score}.
 
-Next metric, that we will be using, will be \textbf{confusion matrix}. While this is not exactly a \textit{metric}, it will 
-still provide with rich insight in our model's capability to predict a correct most probable result.
+Next metric, that we will be using, will be \textbf{confusion matrix}. While this is not
+exactly a \textit{metric}, it will still provide with rich insight in our model's capability 
+to predict a correct most probable result.
 
-Last metric that we will be using will be \textbf{betting 
-profitability}. We will compare returned probabilities with betting 
-odds. We will assume to bet if we find a profitable combination and 
-not to bet, if we do not. For example, assume that the returned probabilities are 50\% for a home win, 30\% for a draw and 20\% for an away win. If bookmaker offers equal odds of 2.9 for each outcome, it is most profitable to bet on home win with expected profit
-$$E(profit) = 1.9 \cdot 0.5 - 1 \cdot 0.5 = 0.45, $$
-as we profit 1.9 times our stake with probability of 50\% (home win) and 
-lose invested money with 50\% probability (away win or draw). However, if
-bookmaker would offer odds of 1.9 for home win, 3.2 for draw and 4.8 for away win and model would return the same probabilities, no bet would be expected to return profit. In that case, we decide not to bet any money.
-Then we will look at results that happened in real life and calculate how much money we would make or lose with our bets.
-That way we will calculate our total profit for
+Last metric that we will be using will be \textbf{betting profitability}. We will 
+compare returned probabilities with betting odds. We will assume to bet if we find a 
+profitable combination and not to bet, if we do not. For example, assume that the returned 
+probabilities are 50\% for a home win, 30\% for a draw and 20\% for an away win. If bookmaker 
+offers equal odds of 2.9 for each outcome, it is most profitable to bet on home win with 
+expected profit $$E(profit) = 1.9 \cdot 0.5 - 1 \cdot 0.5 = 0.45, $$
+as we profit 1.9 times our stake with probability of 50\% (home win) and lose invested money
+with 50\% probability (away win or draw). However, if bookmaker would offer odds of 1.9 for
+home win, 3.2 for draw and 4.8 for away win and model would return the same probabilities, no
+bet would be expected to return profit. In that case, we decide not to bet any money.
+Then we will look at results that happened in real life and calculate how much money we 
+would make or lose with our bets. That way we will calculate our total profit for
 each model. Better models will have bigger profit (smaller loss).
-
-% TODO: dodaj https://towardsdatascience.com/comprehensive-guide-on-multiclass-classification-metrics-af94cfb83fbd
 
 \section{Results}
 
@@ -325,12 +346,12 @@ First metric, that is used for evaluation, is the Brier score.
     \end{tabular}
 \end{table}
 
-As stated in chapter \textit{Metrics for evaluation}, better models will have a lower Brier score.
-Neural network has a lowest Brier score, followed by Naive Bayes, which has a similar
-value as Bayesian network. Algorithm $k$-NN has the worst Brier score.
+As stated in chapter \textit{Metrics for evaluation}, better models will have a lower 
+Brier score. Neural network has a lowest Brier score, followed by Naive Bayes, which has 
+a similar value as Bayesian network. Algorithm $k$-NN has the worst Brier score.
 
-If we compare each model's accuracy, the below table tells us, that Naive Bayes has a highest accuracy of
-almost 50 percent, closely followed by Neural Network.
+If we compare each model's accuracy, the below table tells us, that Naive Bayes has a 
+highest accuracy of almost 50 percent, closely followed by Neural Network.
 
 \begin{table}[!ht]
     \centering
@@ -342,8 +363,6 @@ almost 50 percent, closely followed by Neural Network.
         \textbf{k-NN} & 0.433 \\ 
     \end{tabular}
 \end{table}
-
-
 
 Next table has data about precision and recall for \textit{home win} value. The F1 score is also
 calculated for \textit{home wins}.
@@ -364,21 +383,23 @@ If we compare the trade off between precision and recall for each model, Bayesia
 has the highest F1 score. However, as we can see from the table, the recall is quite high and
 precision is low. That means, that the model predicted a lot of false positives and not a lot 
 of false negatives. That basically means, that if the outcome was indeed a \textit{home win},
-Bayesian network was very successful at predicting, but if the outcome was not a \textit{home win},
-model still falsely predicted the outcome many times. F1 score optimizes combination of precision 
-and recall. 
+Bayesian network was very successful at predicting, but if the outcome was not a \textit{home
+win}, model still falsely predicted the outcome many times. F1 score optimizes combination 
+of precision and recall. 
 
 However, in this example, precision and recall are calculated only for \textit{home win}
 class. While we can state, that Bayesian network is indeed the best model for predicting 
 \textit{home wins}, we for sure cannot imply that this model is also best for other predictions.
-Another example to confirm this will be to define a simple trivial model, that predicts a home win in 
-every game, regardless to statistics. That model would have a recall of 1, as it would never falsely 
-predict an outcome, if the real outcome would be a home win. It would have a precision of 0.45, as
-45\% of all games in our data frame resulted in a home win. So the F1 score would be:
-$$F1 = \frac{2 \cdot precision \cdot recall}{precision + recall} = 0.62,$$ which would still be better than,
-for example Neural network. 
+Another example to confirm this will be to define a simple trivial model, that predicts a 
+home win in every game, regardless to statistics. That model would have a recall of 1, as it
+would never falsely predict an outcome, if the real outcome would be a home win. It would have
+a precision of 0.45, as 45\% of all games in our data frame resulted in a home win. So the F1
+score would be: $$F1 = \frac{2 \cdot precision \cdot recall}{precision + recall} = 0.62,$$
+which would still be better than, for example Neural network. 
 
-The profit metric will be analyzed in the last subsection of this chapter, \textit{Beating the bookmakers}. The last and most important aspect of this subsection is interpreting the confusion matrix for each model. 
+The profit metric will be analyzed in the last subsection of this chapter, \textit{Beating the
+bookmakers}. The last and most important aspect of this subsection is interpreting the 
+confusion matrix for each model. 
 
 \begin{figure}[!ht]
 \begin{center}
@@ -401,19 +422,19 @@ The profit metric will be analyzed in the last subsection of this chapter, \text
 \label{conf_mat_bn}
 \end{figure}
 
-First confusion matrix is for Bayesian network, presented in Figure \ref{conf_mat_bn}. By observing
-the matrix, we can clearly see, where the problem of this model is. The model predicts a match to end
-in a \textit{home win} too often. Even in matches, where the away team won (which is the opposite of 
-home team winning), the model still mostly predicted home wins. 
+First confusion matrix is for Bayesian network, presented in Figure \ref{conf_mat_bn}. 
+By observing the matrix, we can clearly see, where the problem of this model is. The model
+predicts a match to end in a \textit{home win} too often. Even in matches, where the away team
+won (which is the opposite of home team winning), the model still mostly predicted home wins. 
 
-Even when the model predicted an away win or a draw, it still did not do well. For example, in cases where
-model supposed an away win, it still didn't predict correctly more than half times (it predicted an away 
-win with precision of 42.8\%). With more than 800 actual matches ending in a draw, Bayesian network 
-predicted only 50 games to end in a draw. 
+Even when the model predicted an away win or a draw, it still did not do well. For example, 
+in cases where model supposed an away win, it still didn't predict correctly more than half
+times (it predicted an away win with precision of 42.8\%). With more than 800 actual matches
+ending in a draw, Bayesian network predicted only 50 games to end in a draw. 
 
-It is therefore safe to say, that the Bayesian networks did not meet with the expectations. It must 
-however be pointed out, that we used fewer statistics to build this model, due to time complexity. 
-Therefore we expected for the results to not be as accurate as other models'.
+It is therefore safe to say, that the Bayesian networks did not meet with the expectations. 
+It must however be pointed out, that we used fewer statistics to build this model, due to time
+complexity. Therefore we expected for the results to not be as accurate as other models'.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -436,15 +457,16 @@ Therefore we expected for the results to not be as accurate as other models'.
 \label{conf_mat_knn}
 \end{figure}
 
-Second confusion matrix is for $k$ nearest neighbours model and can be seen in Figure \ref{conf_mat_knn}.
-Similarly as in previous model, the Bayesian network, $k$-NN predicted mostly home wins for every actual
-outcome. So the recall would again be quite low for any other class than \textit{home win}, but still 
-not as low as for Bayesian network. 
+Second confusion matrix is for $k$ nearest neighbours model and can be seen in Figure
+\ref{conf_mat_knn}. Similarly as in previous model, the Bayesian network, $k$-NN predicted
+mostly home wins for every actual outcome. So the recall would again be quite low for any other
+class than \textit{home win}, but still not as low as for Bayesian network. 
 
-At least the model predicted a more realistic number of draws and away wins. However, the precision 
-for both of those classes were not much higher than Bayesian network. This model was made for $k=5$, 
-however should work better for bigger $k$ (finding more similar games and comparing final result). 
-Comparing model's ability to accurately predict games can be found in the next subsection, \textit{Parameter effect on results}.
+At least the model predicted a more realistic number of draws and away wins. However, 
+the precision for both of those classes were not much higher than Bayesian network. This 
+model was made for $k=5$, however should work better for bigger $k$ (finding more similar 
+games and comparing final result). Comparing model's ability to accurately predict games can 
+be found in the next subsection, \textit{Parameter effect on results}.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -467,15 +489,16 @@ Comparing model's ability to accurately predict games can be found in the next s
 \label{conf_mat_nb}
 \end{figure}
 
-Next confusion matrix is presented in Figure \ref{conf_mat_nb}, for Naive Bayes model. Observing the
-confusion matrix, we can see, that this model predicts far better than the previous two. For games, 
-where final result was an away win, Naive Bayes predicted an \textit{away win} (accurately) in most
-cases. Even when a draw happened, the model did not predict a \textit{home win} with such big margin 
-to other two predictions, but also predicted the away team to win quite often. The recall for classes 
-\textit{away win} and \textit{draw} is considerably higher than those for Bayesian network and $k$-NN.
+Next confusion matrix is presented in Figure \ref{conf_mat_nb}, for Naive Bayes model. 
+Observing the confusion matrix, we can see, that this model predicts far better than the
+previous two. For games, where final result was an away win, Naive Bayes predicted an
+\textit{away win} (accurately) in most cases. Even when a draw happened, the model did not
+predict a \textit{home win} with such big margin to other two predictions, but also predicted
+the away team to win quite often. The recall for classes \textit{away win} and \textit{draw} is
+considerably higher than those for Bayesian network and $k$-NN.
 
-If we look at precision, it is also quite good (compared to other models), with precision of 33\% for 
-class \textit{draw} and 38\% for \textit{away win}.
+If we look at precision, it is also quite good (compared to other models), with precision of
+33\% for class \textit{draw} and 38\% for \textit{away win}.
 
 \begin{figure}[!ht]
 \begin{center}
@@ -499,15 +522,16 @@ class \textit{draw} and 38\% for \textit{away win}.
 \end{figure}
 
 Last confusion matrix belongs to Neural network model and is show in Figure \ref{conf_mat_nn}.
-It seems as Neural network again has the home win bias as in all three actual outcomes, the model
-mostly predicted the \textit{home win} class. The recall is again low for \textit{draw} and \textit{away
-win}, 12\% and 39\% respectively.
+It seems as Neural network again has the home win bias as in all three actual outcomes, the
+model mostly predicted the \textit{home win} class. The recall is again low for \textit{draw}
+and \textit{away win}, 12\% and 39\% respectively.
 
 \subsection{Beating the bookmakers}
 
-Here we will compare the algorithms ability to compete with the bookmaker. The below table gives us 
-average profit per bet of each model. The betting simulation was performed as described in 
-chapter \textit{Experiment description}, subsection \textit{Metrics for evaluation}.
+Here we will compare the algorithms ability to compete with the bookmaker. The below table
+gives us average profit per bet of each model. The betting simulation was performed as
+described in chapter \textit{Experiment description}, subsection \textit{Metrics for
+evaluation}.
 
 \begin{table}[!ht]
     \centering
@@ -521,26 +545,28 @@ chapter \textit{Experiment description}, subsection \textit{Metrics for evaluati
     \end{tabular}
 \end{table}
 
-As we can see from the table, no models generated profit. Naive Bayes generated a loss of 6\% and 
-all other models generated a loss of more than 10\%. That means, if we would bet an euro on outcome,
-proposed by Naive Bayes model, we would lose 6 cents on average. We must of course remember, 
-that betting odds are not exactly fair. In fact, if betting completely 
-randomly and implying, that bookmaker correctly calculated probabilities for each result, we would
-averagely generate a loss of a bit more than 6\%. So, taking that into consideration, our \textbf{best}
-model generates a similar loss to a random algorithm. That just proves, that our models are not good 
-enough to beat the odds or to even predict a better outcome than bookmakers. That was an expected 
-result.
+As we can see from the table, no models generated profit. Naive Bayes generated a loss of 6\%
+and all other models generated a loss of more than 10\%. That means, if we would bet an euro 
+on outcome, proposed by Naive Bayes model, we would lose 6 cents on average. We must of course
+remember, that betting odds are not exactly fair. In fact, if betting completely 
+randomly and implying, that bookmaker correctly calculated probabilities for each result, 
+we would averagely generate a loss of a bit more than 6\%. So, taking that into consideration,
+our \textbf{best} model generates a similar loss to a random algorithm. That just proves, that
+our models are not good enough to beat the odds or to even predict a better outcome than
+bookmakers. That was an expected result.
 
-We will see if by tweaking the parameters of results, we could be able to generate less loss. That will be described in the next subsection \textit{Parameter effect on results}.
+We will see if by tweaking the parameters of results, we could be able to generate less loss.
+That will be described in the next subsection \textit{Parameter effect on results}.
 
-For the conclusion of the betting chapter, we will assume, that odds generated by bookmaker bet365
-resemble true probabilities. We will compare which model returns odds most similar to bookmaker's.
-We will do that by defining another metric, \textbf{modified Brier score}
+For the conclusion of the betting chapter, we will assume, that odds generated by bookmaker
+bet365 resemble true probabilities. We will compare which model returns odds most similar to
+bookmaker's. We will do that by defining another metric, \textbf{modified Brier score}
 $$\frac{1}{N} \sum_{i=1}^{N} \sum_{t=1}^{R} {(P_{model}(o_{ti}) - P_{bet365}(o_{ti}))^2},$$
-where $P_{model}(o_{ti})$ is probability of an outcome $o_{ti}$ returned by model and $P_{bet365}
-(o_{ti})$ is bookmaker's probability of the same outcome. We will imply, that odds 2 resemble a 50\% 
-probability. Even though that is not completely correct, it will be the same for every model, so it does
-not really matter. The results are visible in the table below:
+where $P_{model}(o_{ti})$ is probability of an outcome $o_{ti}$ returned by model and 
+$P_{bet365}(o_{ti})$ is bookmaker's probability of the same outcome. We will imply, that 
+odds 2 resemble a 50\% probability. Even though that is not completely correct, it will be 
+the same for every model, so it does not really matter. The results are visible in the table
+below:
 
 \begin{table}[!ht]
     \centering
@@ -554,21 +580,21 @@ not really matter. The results are visible in the table below:
     \end{tabular}
 \end{table}
 
-From the table we can conclude, that Neural network returns probabilities, that are the closest to 
-bookmakers'. $k$-NN's returned probabilities are by far the worst.
+From the table we can conclude, that Neural network returns probabilities, that are the 
+closest to bookmakers'. $k$-NN's returned probabilities are by far the worst.
 
 \subsection{Parameter effect on results}
 
-In this subsection, we are going to explore how the changing of parameters affect final results 
-and model evaluation. 
+In this subsection, we are going to explore how the changing of parameters affect final 
+results and model evaluation. 
 
-Firstly, we will look at how does changing the $k$ parameter in $k$-NN affect our prediction. We again
-performed a 10-fold cross validation for different $k$ in range from 5 to 30 and got the following 
-plots (Figures \ref{profit-knn}, \ref{prec-knn}, \ref{mbs-knn}).
+Firstly, we will look at how does changing the $k$ parameter in $k$-NN affect our prediction.
+We again performed a 10-fold cross validation for different $k$ in range from 5 to 30 and got
+the following plots (Figures \ref{profit-knn}, \ref{prec-knn}, \ref{mbs-knn}).
 
-First graph (Figure \ref{profit-knn}) shows average profit in relation to $k$. We can see, that profit 
-was maximized for $k$ around 70. That means that model finds 60 games, with data that is most
-similar to game, and predict in regard to that.
+First graph (Figure \ref{profit-knn}) shows average profit in relation to $k$. We can see, 
+that profit was maximized for $k$ around 70. That means that model finds 60 games, with data
+that is most similar to game, and predict in regard to that.
 
 \begin{figure}[!ht]
 \includegraphics[width=0.5\textwidth]{profit_k_knn.png}
@@ -583,13 +609,13 @@ similar to game, and predict in regard to that.
 \end{figure}
 
 The $k$-NN model for $k=5$ had a problem before in predicting too much home wins (as discussed 
-previously). That resulted in particularly low precision. So we shall compare how precision grows (or 
-falls) with $k$. The results are presented in Figure \ref{prec-knn}. It seems as if precision decreases if we are increasing $k$. So manipulating parameter $k$ does not help with our issue
-from before, when model predicted too many home wins.
+previously). That resulted in particularly low precision. So we shall compare how precision
+grows (or falls) with $k$. The results are presented in Figure \ref{prec-knn}. It seems as if
+precision decreases if we are increasing $k$. So manipulating parameter $k$ does not help with
+our issue from before, when model predicted too many home wins.
 
 Let's also check, for which $k$ the returned predictions are the closest to bookmaker's 
-predicted probabilities. The plot for modified Brier score in relation to $k$ is presented in Figure \ref{mbs-knn}. It looks as if the bigger the $k$, the more similar our predictions are to 
-bookmakers'.
+predicted probabilities. The plot for modified Brier score in relation to $k$ is presented in Figure \ref{mbs-knn}. It looks as if the bigger the $k$, the more similar our predictions are to bookmakers'.
 
 \begin{figure}[!ht]
 \includegraphics[width=0.5\textwidth]{mbs_k_knn.png}
@@ -620,7 +646,8 @@ Naive Bayes model and slowly increase learning data size. This time, we will not
 the $k$-fold cross validation for testing, but we will pick a fixed size test data of 500
 instances.
 
-First plot, Figure \ref{data_size_profit} shows, rise of the profit, if we increase the data size. However, with limited data, we could never know if Naive Bayes could beat the bookmaker.
+First plot, Figure \ref{data_size_profit} shows, rise of the profit, if we increase the data
+size. However, with limited data, we could never know if Naive Bayes could beat the bookmaker.
 
 \begin{figure}[!ht]
 \includegraphics[width=0.5\textwidth]{profit-data_size.png}
@@ -628,128 +655,22 @@ First plot, Figure \ref{data_size_profit} shows, rise of the profit, if we incre
 \label{data_size_profit}
 \end{figure}
 
+Figure \ref{data_size_brier}, portrays how Brier score decreases with bigger data size. It
+can be observed, that the decrease rate settles at data size approximately 1500. That tells us,
+that even by adding many more data, we still could not achieve a much better prediction (at
+least not with Naive Bayes model).
 
-
-% An example of a floating figure using the graphicx package.
-% Note that \label must occur AFTER (or within) \caption.
-% For figures, \caption should occur after the \includegraphics.
-% Note that IEEEtran v1.7 and later has special internal code that
-% is designed to preserve the operation of \label within \caption
-% even when the captionsoff option is in effect. However, because
-% of issues like this, it may be the safest practice to put all your
-% \label just after \caption rather than within \caption{}.
-%
-% Reminder: the "draftcls" or "draftclsnofoot", not "draft", class
-% option should be used if it is desired that the figures are to be
-% displayed while in draft mode.
-%
-%\begin{figure}[!t]
-%\centering
-%\includegraphics[width=2.5in]{myfigure}
-% where an .eps filename suffix will be assumed under latex, 
-% and a .pdf suffix will be assumed for pdflatex; or what has been declared
-% via \DeclareGraphicsExtensions.
-%\caption{Simulation Results.}
-%\label{fig_sim}
-%\end{figure}
-
-% Note that IEEE typically puts floats only at the top, even when this
-% results in a large percentage of a column being occupied by floats.
-
-
-% An example of a double column floating figure using two subfigures.
-% (The subfig.sty package must be loaded for this to work.)
-% The subfigure \label commands are set within each subfloat command,
-% and the \label for the overall figure must come after \caption.
-% \hfil is used as a separator to get equal spacing.
-% Watch out that the combined width of all the subfigures on a 
-% line do not exceed the text width or a line break will occur.
-%
-%\begin{figure*}[!t]
-%\centering
-%\subfloat[Case I]{\includegraphics[width=2.5in]{box}%
-%\label{fig_first_case}}
-%\hfil
-%\subfloat[Case II]{\includegraphics[width=2.5in]{box}%
-%\label{fig_second_case}}
-%\caption{Simulation results.}
-%\label{fig_sim}
-%\end{figure*}
-%
-% Note that often IEEE papers with subfigures do not employ subfigure
-% captions (using the optional argument to \subfloat[]), but instead will
-% reference/describe all of them (a), (b), etc., within the main caption.
-
-
-% An example of a floating table. Note that, for IEEE style tables, the 
-% \caption command should come BEFORE the table. Table text will default to
-% \footnotesize as IEEE normally uses this smaller font for tables.
-% The \label must come after \caption as always.
-%
-%\begin{table}[!t]
-%% increase table row spacing, adjust to taste
-%\renewcommand{\arraystretch}{1.3}
-% if using array.sty, it might be a good idea to tweak the value of
-% \extrarowheight as needed to properly center the text within the cells
-%\caption{An Example of a Table}
-%\label{table_example}
-%\centering
-%% Some packages, such as MDW tools, offer better commands for making tables
-%% than the plain LaTeX2e tabular which is used here.
-%\begin{tabular}{|c||c|}
-%\hline
-%One & Two\\
-%\hline
-%Three & Four\\
-%\hline
-%\end{tabular}
-%\end{table}
-
-
-% Note that IEEE does not put floats in the very first column - or typically
-% anywhere on the first page for that matter. Also, in-text middle ("here")
-% positioning is not used. Most IEEE journals/conferences use top floats
-% exclusively. Note that, LaTeX2e, unlike IEEE journals/conferences, places
-% footnotes above bottom floats. This can be corrected via the \fnbelowfloat
-% command of the stfloats package.
-
-
+\begin{figure}[!ht]
+\includegraphics[width=0.5\textwidth]{brier-data_size.png}
+\caption{Profit in relation to the size of the learn data frame}
+\label{data_size_brier}
+\end{figure}
 
 \section{Conclusion}
 
-% conference papers do not normally have an appendix
-
-
-% use section* for acknowledgement
 \section*{Acknowledgment}
-
-% trigger a \newpage just before the given reference
-% number - used to balance the columns on the last page
-% adjust value as needed - may need to be readjusted if
-% the document is modified later
-%\IEEEtriggeratref{8}
-% The "triggered" command can be changed if desired:
-%\IEEEtriggercmd{\enlargethispage{-5in}}
-
-% references section
-
-% can use a bibliography generated by BibTeX as a .bbl file
-% BibTeX documentation can be easily obtained at:
-% http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
-% The IEEEtran BibTeX style support page is at:
-% http://www.michaelshell.org/tex/ieeetran/bibtex/
-%\bibliographystyle{IEEEtran}
-% argument is your BibTeX string definitions and bibliography database(s)
-%\bibliography{IEEEabrv,../bib/paper}
-%
-% <OR> manually copy in the resultant .bbl file
-% set second argument tof \begin to the number of references
-% (used to reserve space for the reference number labels box)
 
 \bibliographystyle{IEEEtran}
 \bibliography{bibliography} 
 
-% that's all folks
 \end{document}
-
-
