@@ -249,4 +249,4 @@ def test_bayesian_networks_model(learn_data, test_data):
 
     F1 = 2 * (precision * recall) / (precision + recall)
 
-    return brier_score / (3 * len(test_data)), precision, recall, F1, confusion_matrix, profit, modified_brier_score / (3 * len(test_data))
+    return brier_score / (len(test_data)), precision, recall, F1, confusion_matrix, profit, modified_brier_score / (len(test_data))
