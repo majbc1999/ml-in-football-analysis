@@ -284,7 +284,7 @@ In order to evaluate our predictions for different models, we will use standard 
 evaluating probabilistic classifiers. 
 
 The most important metric will be \textbf{Brier score}, which is defined as 
-$$\frac{1}{N} \sum_{i=1}^{N} \sum_{t=1}^{R} {(P(o_{ti}) - o_{ti})^2},$$ in which $R$ is the
+$$\frac{1}{N R} \sum_{i=1}^{N} \sum_{t=1}^{R} {(P(o_{ti}) - o_{ti})^2},$$ in which $R$ is the
 number of possible classes of an event and $N$ the overall number of instances (size of our
 test data). $P(o_{ti})$ is the predicted probability (returned by our model) of class $t$ 
 to occur in instance $i$. $o_{ti}$ is 1 if $i$-th event is of class $t$ and 0 otherwise. 
@@ -352,16 +352,19 @@ First metric, that is used for evaluation, is the Brier score.
     \centering
     \begin{tabular}{ll}
         model & Brier score \\ \hline
-        \textbf{Neural network} & 206.651 \\ 
-        \textbf{Naive Bayes} & 212.93 \\ 
-        \textbf{Bayesian network} & 213.165 \\ 
-        \textbf{k-NN} & 243.136 \\ 
+        \textbf{Bayesian network} & 0.263424 \\ 
+        \textbf{Neural network} & 0.630378 \\ 
+        \textbf{Naive Bayes} & 0.64368 \\ 
+        \textbf{k-NN} & 0.735015 \\ 
     \end{tabular}
 \end{table}
 
 As stated in chapter \textit{Metrics for evaluation}, better models will have a lower 
-Brier score. Neural network has a lowest Brier score, followed by Naive Bayes, which has 
-a similar value as Bayesian network. Algorithm $k$-NN has the worst Brier score.
+Brier score. Bayesian network has a lowest Brier score, followed by Neural network, which has 
+a similar value as Naive Bayes. Algorithm $k$-NN has the worst Brier score. Although, Brier score
+is not as relevant as we though at the beginning. The reason why Bayesian network's Brier score
+is lower then at other model is that Bayesian network always predicts high probability of a home
+win, which is the most frequent outcome.
 
 If we compare each model's accuracy, the below table tells us, that Naive Bayes has a 
 highest accuracy of almost 50 percent, closely followed by Neural Network.
@@ -525,9 +528,9 @@ If we look at precision, it is also quite high (compared to other models), with 
 \multicolumn{1}{c}{\rot{draw}} & 
 \multicolumn{1}{c}{\rot{away win}} \\ \hhline{~*\items{|-}|}
 \multirow{\items}{*}{\rotatebox{90}{Actual}} 
-&home win   & 1134   & 128  & 256   \\ \hhline{~*\items{|-}|}
-&draw       & 515   & 96  & 235   \\ \hhline{~*\items{|-}|}
-&away win   & 482   & 97   & 365   \\ \hhline{~*\items{|-}|}
+&home win   & 1065   & 133  & 320   \\ \hhline{~*\items{|-}|}
+&draw       & 478   & 103  & 265   \\ \hhline{~*\items{|-}|}
+&away win   & 429   & 97   & 429   \\ \hhline{~*\items{|-}|}
 \end{tabular}
 \end{center}
 \caption{Confusion matrix for Neural network}
@@ -552,7 +555,9 @@ evaluation}.
     \hline
         \textbf{model} & average profit per bet \\ \hline
         \textbf{Naive Bayes} & -0.0626 \\ \hline
+        \textbf{Random model} & -0.1049 \\ \hline
         \textbf{Bayesian network} & -0.1078 \\ \hline
+        \textbf{Trivial model} & -0.1093 \\ \hline
         \textbf{Neural network} & -0.1142 \\ \hline
         \textbf{k-NN} & -0.1202 \\ \hline
     \end{tabular}
@@ -560,13 +565,13 @@ evaluation}.
 
 As we can see from the table, no models generated profit. Naive Bayes generated a loss of 6\%
 and all other models generated a loss of more than 10\%. That means, if we would bet an euro 
-on outcome, proposed by Naive Bayes model, we would lose 6 cents on average. We must of course
-remember, that betting odds are not exactly fair. In fact, if betting completely 
-randomly and implying, that bookmaker correctly calculated probabilities for each result, 
-we would averagely generate a loss of a bit more than 6\%. So, taking that into consideration,
-our \textbf{best} model generates a similar loss to a random algorithm. That just proves, that
-our models are not good enough to beat the odds or to even predict a better outcome than
-bookmakers. That was an expected result.
+on outcome, that was proposed by Naive Bayes model, we would lose 6 cents on average. We must of course
+remember, that betting odds are not exactly fair. In fact, we also performed a simulation for 
+model, that bets completely randomly, the \textit{Random model}. It had a loss of more than 10\%,
+which is worse than Naive Bayes. \textit{Trivial model} always betted on an away win and it also 
+had a loss of more than 10\%. So, the Naive Bayes actually returns better probabilities than 
+bookmaker. However, the probabilities are not different enough to generate the profit. That was 
+an expected result.
 
 We will see if by tweaking the parameters of results, we could be able to generate less loss.
 That will be described in the next subsection \textit{Parameter effect on results}.
@@ -574,7 +579,7 @@ That will be described in the next subsection \textit{Parameter effect on result
 For the conclusion of the betting chapter, we will assume, that odds generated by bookmaker
 bet365 resemble true probabilities. We will compare which model returns probabilities most similar to
 bookmaker's. We will do that by defining another metric, \textbf{modified Brier score}
-$$\frac{1}{N} \sum_{i=1}^{N} \sum_{t=1}^{R} {(P_{model}(o_{ti}) - P_{bet365}(o_{ti}))^2},$$
+$$\frac{1}{N R} \sum_{i=1}^{N} \sum_{t=1}^{R} {(P_{model}(o_{ti}) - P_{bet365}(o_{ti}))^2},$$
 where $P_{model}(o_{ti})$ is probability of an outcome $o_{ti},$ returned by model and 
 $P_{bet365}(o_{ti})$ is bookmaker's probability of the same outcome. We will imply, that 
 odds 2 resemble a 50\% probability. Even though that is not completely correct, it will be 
@@ -586,15 +591,16 @@ below:
     \begin{tabular}{|l|l|}
     \hline
         \textbf{model} & modified Brier score \\ \hline
-        \textbf{Neural network} & 20.0 \\ \hline
-        \textbf{Bayesian network} & 24.1 \\ \hline
-        \textbf{Naive Bayes} & 25.2 \\ \hline
-        \textbf{k-NN} & 52.7 \\ \hline
+        \textbf{Bayesian network} & 0.034498 \\ \hline
+        \textbf{Neural network} & 0.064904 \\ \hline
+        \textbf{Naive Bayes} & 0.076137 \\ \hline
+        \textbf{k-NN} & 0.159308 \\ \hline
     \end{tabular}
 \end{table}
 
-From the table we can conclude, that Neural network returns probabilities, that are the 
-closest to bookmakers'. $k$-NN's returned probabilities are by far the worst.
+From the table we can conclude, that Bayesian network returns probabilities, that are the 
+closest to bookmakers'. That is again mostly because of its home win bias. 
+$k$-NN's returned probabilities are by far the worst.
 
 \subsection{Parameter effect on results}
 
