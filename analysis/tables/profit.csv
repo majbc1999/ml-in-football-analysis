@@ -1,5 +1,5 @@
 model,profit,modified Brier score
-Naive Bayes,-0.0626,25.2
-Neural network,-0.0775,20.0
-Bayesian network,-0.1078,24.1
-k-NN,-0.1202,52.7
+Naive Bayes,-0.0626,0.076137
+Neural network,-0.0787,0.064904
+Bayesian network,-0.1078,0.034498
+k-NN,-0.1202,0.159308

@@ -1,5 +1,5 @@
 model,modified Brier score
-Neural network,20.0
-Bayesian network,24.1
-Naive Bayes,25.2
-k-NN,52.7
+Bayesian network,0.034498
+Neural network,0.064904
+Naive Bayes,0.076137
+k-NN,0.159308
